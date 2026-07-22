@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://dri64f2c6iix5"]
+
+[ext_resource type="Texture2D" uid="uid://b2oese3sm7bus" path="res://icon.svg" id="1_ff7fa"]
+[ext_resource type="Script" uid="uid://8sc25pd4hyph" path="res://src/bomby/enemy.gd" id="1_juonw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_02yun"]
+size = Vector2(126, 124)
+
+[node name="Enemy" type="CharacterBody2D" unique_id=226046125]
+modulate = Color(1, 0, 0, 1)
+script = ExtResource("1_juonw")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=518130200]
+texture = ExtResource("1_ff7fa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1344415394]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_02yun")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=227348275]
+path_postprocessing = 1
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1493761059]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1342565159]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_02yun")
