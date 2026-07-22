@@ -25,10 +25,10 @@ Anthropomorphic bomb
 # Gameplay Loop ("Stages") / Verbs & Nouns
 
 # Idea 1: Startup rush
-- Flip switches
-- Turn Dials
-- Shift Gears
-- "GO!!!"
+- Flip switches: Prototyped!
+- Turn Dials: WIP
+- Shift Gears: Prototyped!
+- "GO!!!": Simple Implementation
 
 - Dragging objects into place
 - Holding down a button
@@ -49,6 +49,13 @@ Easy: Order does not matter
 Hard: Order Matters
 
 Clipboard to designate order(?)
+
+Prototype:
+
+Close Cockpit Hatch (Button)
+Press Ignition Button (Button)
+Startup Oxeygen, Filter, VT Locomotion, Buffer Material, Fuel Flow (Toggles x5)
+Start (Button)
 
 # Idea 2: Jam Simulator
 - Typing

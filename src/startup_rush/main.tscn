@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://btcejg5ijg8jh"]
+
+[ext_resource type="Script" uid="uid://dean41lfqanqq" path="res://src/startup_rush/main.gd" id="1_gsbu6"]
+[ext_resource type="PackedScene" uid="uid://sa3cqu3t8bm6" path="res://src/startup_rush/button.tscn" id="2_m24np"]
+[ext_resource type="PackedScene" uid="uid://4deoqqhj2l24" path="res://src/startup_rush/flip_switch.tscn" id="2_ouxy6"]
+
+[node name="Main" type="Node" unique_id=289553086]
+script = ExtResource("1_gsbu6")
+
+[node name="Flip1" parent="." unique_id=914625297 instance=ExtResource("2_ouxy6")]
+position = Vector2(82, 507)
+label_text = "OSS"
+
+[node name="Flip2" parent="." unique_id=1369899226 instance=ExtResource("2_ouxy6")]
+position = Vector2(225, 519)
+label_text = "FCS"
+
+[node name="Flip3" parent="." unique_id=524085493 instance=ExtResource("2_ouxy6")]
+position = Vector2(364, 542)
+label_text = "VT-LM"
+
+[node name="Flip4" parent="." unique_id=2055174215 instance=ExtResource("2_ouxy6")]
+position = Vector2(502, 567)
+label_text = "BM"
+
+[node name="Flip5" parent="." unique_id=1456868926 instance=ExtResource("2_ouxy6")]
+position = Vector2(641, 585)
+label_text = "FFR"
+
+[node name="CockpitHatch" parent="." unique_id=1651656126 instance=ExtResource("2_m24np")]
+position = Vector2(1209, 309)
+label_text = "Cockpit Hatch"
+
+[node name="Ignition" parent="." unique_id=1282641713 instance=ExtResource("2_m24np")]
+position = Vector2(1174, 470)
+label_text = "Ignition"
+
+[node name="Start" parent="." unique_id=184948176 instance=ExtResource("2_m24np")]
+position = Vector2(1099, 633)
+label_text = "Start"
+
+[node name="Timer" type="Timer" parent="." unique_id=732208148]
+wait_time = 3.0
+autostart = true
+
+[node name="Label" type="Label" parent="." unique_id=962156066]
+offset_left = 384.0
+offset_top = 75.0
+offset_right = 865.0
+offset_bottom = 239.0

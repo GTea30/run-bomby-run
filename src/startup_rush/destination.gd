@@ -1,6 +1,6 @@
 # @tool, @icon, @static_unload
-class_name Main
-extends Node
+class_name Destination
+extends Node2D
 # ## doc comment
 # ---
 # signals
@@ -10,6 +10,7 @@ extends Node
 # @export variables
 # remaining regular variables
 # @onready variables
+@onready var area_2d: Area2D = $Area2D;
 # ---
 # _static_init()
 # remaining static methods
