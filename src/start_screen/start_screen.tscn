@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bqpmkkuy1i8lf"]
 
-[ext_resource type="Script" uid="uid://ck4t3prqdmlsh" path="res://src/start_screen.gd" id="1_pvgo3"]
+[ext_resource type="Script" uid="uid://ck4t3prqdmlsh" path="res://src/start_screen/start_screen.gd" id="1_pvgo3"]
 
 [node name="StartScreen" type="Node" unique_id=844705672]
 script = ExtResource("1_pvgo3")
