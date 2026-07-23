@@ -15,6 +15,7 @@ signal caught;
 
 # remaining regular variables
 var is_paused: bool = false;
+var starting_position: StartingPosition;
 
 # @onready variables
 @onready var hitbox: Area2D = $Area2D
@@ -25,6 +26,7 @@ var is_paused: bool = false;
 #    _init()
 #    _enter_tree()
 func _ready() -> void:
+	self.starting_position = StartingPosition.new(self.global_position);
 	self.hitbox.area_entered.connect(_on_hitbox_area_entered);
 func _process(delta: float) -> void:
 	if !self.is_paused:
@@ -51,6 +53,11 @@ func _process(delta: float) -> void:
 #    remaining virtual methods
 # overridden custom methods
 # remaining methods
+
+func reset() -> void:
+	self.starting_position.reset_to_starting_position(self);
+	self.is_paused = false;
+
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	if area.get_parent() is Enemy:
 		self.caught.emit();

@@ -11,7 +11,9 @@ extends SceneNode
 @export var enemies: Array[Enemy];
 # remaining regular variables
 var counting_down: bool = false;
-#
+var speed_multiplier: int = 1;
+var score: int = 0;
+
 # @onready variables
 @onready var player: Player = $Player;
 @onready var timer: Timer = $Timer;
@@ -30,7 +32,12 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if counting_down:
-		self.label.text = str(self.timer.time_left);
+		var new_text_format: String = "Points: %s, Time remaining: %s";
+		var new_text: String = new_text_format % [self.score, self.timer.time_left];
+
+		self.label.text = new_text;
+	else:
+		self.label.text = "Points: %s" % self.score;
 
 
 #    _physics_process()
@@ -43,12 +50,21 @@ func _on_player_to_explode() -> void:
 
 func _on_timer_timeout() -> void:
 	self.counting_down = false;
-	for enemy in self.enemies:
-		enemy.queue_free();
-	self.label.text = "You Win!";
+	self._reset();
 
 func _on_player_caught() -> void:
 	self.counting_down = false;
 	self.label.text = "You Lose!";
+	self.change_scene.emit(SceneManager.SceneEnum.START_SCENE)
+
+func _reset() -> void:
+	self.timer.stop()
+	self.timer.wait_time = 3.0
+	self.counting_down = false;
+	self.player.reset();
+	for enemy in self.enemies:
+		enemy.reset();
+	self.score += 1;
+	pass;
 
 # inner classes

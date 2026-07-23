@@ -9,10 +9,14 @@ extends CharacterBody2D
 # static variables
 # @export variables
 @export var target: Player;
+
 # remaining regular variables
 var movement_speed: float = 50
+var starting_position: StartingPosition;
+
 # @onready variables
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D;
+
 # ---
 # _static_init()
 # remaining static methods
@@ -20,6 +24,7 @@ var movement_speed: float = 50
 #    _init()
 #    _enter_tree()
 func _ready() -> void:
+	self.starting_position = StartingPosition.new(self.global_position);
 	self.navigation_agent.path_desired_distance = 4.0;
 	self.navigation_agent.target_desired_distance = 4.0;
 
@@ -41,4 +46,7 @@ func _physics_process(_delta: float) -> void:
 #    remaining virtual methods
 # overridden custom methods
 # remaining methods
+func reset() -> void:
+	self.starting_position.reset_to_starting_position(self);
+
 # inner classes
