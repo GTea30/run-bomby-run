@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://sa3cqu3t8bm6"]
 
-[ext_resource type="Script" uid="uid://cdohwbvba6lbc" path="res://src/startup_rush/button.gd" id="1_6nifx"]
+[ext_resource type="Script" path="res://src/startup_rush/button.gd" id="1_6nifx"]
 [ext_resource type="Texture2D" uid="uid://b2oese3sm7bus" path="res://icon.svg" id="2_b5247"]
 
 [node name="Node" type="Node2D" unique_id=1651656126]
