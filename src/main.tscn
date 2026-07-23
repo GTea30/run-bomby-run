@@ -1,6 +1,15 @@
 [gd_scene format=3 uid="uid://brfjdyw5gtwqd"]
 
 [ext_resource type="Script" uid="uid://crs4iqhvcjtns" path="res://src/main.gd" id="1_v5khd"]
+[ext_resource type="PackedScene" uid="uid://cm5f4cvm4x18y" path="res://src/options/options.tscn" id="2_gh0ne"]
+[ext_resource type="Script" uid="uid://c3etg5q1rkgxv" path="res://src/sfx_audio.gd" id="3_5q4o7"]
 
 [node name="Main" type="Node" unique_id=999897495]
 script = ExtResource("1_v5khd")
+
+[node name="Options" parent="." unique_id=1234068276 instance=ExtResource("2_gh0ne")]
+visible = false
+
+[node name="SFXAudio" type="AudioStreamPlayer" parent="." unique_id=2122725733]
+max_polyphony = 5
+script = ExtResource("3_5q4o7")

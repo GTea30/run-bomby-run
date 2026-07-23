@@ -1,2 +1,3 @@
 - Sci-fi sounds https://kenney.nl/assets/sci-fi-sounds
 - Beep: https://opengameart.org/content/selection-beep
+- IBM Font: https://int10h.org/oldschool-pc-fonts/readme/#legal_stuff

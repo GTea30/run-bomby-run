@@ -10,7 +10,8 @@ extends SceneNode;
 # @export variables
 # remaining regular variables
 # @onready variables
-@onready var start_button: Button = $StartButton;
+@onready var start_button: Button = $VBoxContainer/StartButton;
+@onready var option_button: Button = $VBoxContainer/OptionButton;
 # ---
 # _static_init()
 # remaining static methods
@@ -19,6 +20,12 @@ extends SceneNode;
 #    _enter_tree()
 func _ready() -> void:
 	self.start_button.pressed.connect(_on_start_button_pressed);
+	self.option_button.pressed.connect(_on_option_button_pressed);
+	# var screen_size: Vector2i = DisplayServer.window_get_size();
+	# self.start_button.position.x = screen_size.x / 2.0;
+	# print(screen_size.y)
+	# self.start_button.position.y = screen_size.y / 2.0;
+
 #    _process()
 #    _physics_process()
 #    remaining virtual methods
@@ -26,4 +33,8 @@ func _ready() -> void:
 # remaining methods
 func _on_start_button_pressed() -> void:
 	self.change_scene.emit(SceneManager.SceneEnum.GAME_SCENE);
+
+func _on_option_button_pressed() -> void:
+	self.open_options.emit();
+
 # inner classes

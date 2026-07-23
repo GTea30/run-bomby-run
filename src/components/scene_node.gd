@@ -1,10 +1,12 @@
 # @tool, @icon, @static_unload
 class_name SceneNode
-extends Node
+extends CanvasLayer
 # ## doc comment
 # ---
 # signals
 signal change_scene(scene: SceneManager.SceneEnum);
+signal open_options();
+signal play_sfx(sfx: SfxAudio.Sfx)
 # enums
 # constants
 # static variables

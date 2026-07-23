@@ -1,0 +1,123 @@
+[gd_scene format=3 uid="uid://cm5f4cvm4x18y"]
+
+[ext_resource type="Theme" uid="uid://dimq1w3s4buar" path="res://src/resources/theme.tres" id="1_c14cj"]
+[ext_resource type="Script" uid="uid://d3thu07ostqit" path="res://src/options/options.gd" id="2_hh8hj"]
+
+[node name="Options" type="Control" unique_id=1234068276 node_paths=PackedStringArray("resolution_node", "window_mode_node", "sfx_volume_node", "music_volume_node")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("1_c14cj")
+script = ExtResource("2_hh8hj")
+resolution_node = NodePath("Menu/Video/Video/Resulution")
+window_mode_node = NodePath("Menu/Video/Video/WindowMode")
+sfx_volume_node = NodePath("Menu/Audio/Audio/SFX Volume")
+music_volume_node = NodePath("Menu/Audio/Audio/Music Volume")
+
+[node name="Menu" type="TabContainer" parent="." unique_id=1257110291]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -97.0
+offset_top = -75.5
+offset_right = 113.0
+offset_bottom = 75.5
+grow_horizontal = 2
+grow_vertical = 2
+current_tab = 1
+clip_tabs = false
+switch_on_drag_hover = false
+use_hidden_tabs_for_min_size = true
+
+[node name="Video" type="MarginContainer" parent="Menu" unique_id=2146177682]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="Video" type="VBoxContainer" parent="Menu/Video" unique_id=1899857972]
+layout_mode = 2
+theme = ExtResource("1_c14cj")
+alignment = 1
+
+[node name="Label" type="Label" parent="Menu/Video/Video" unique_id=920707420]
+layout_mode = 2
+text = "Resolution"
+
+[node name="Resulution" type="OptionButton" parent="Menu/Video/Video" unique_id=1424468179]
+layout_mode = 2
+selected = 0
+item_count = 4
+popup/item_0/text = "640x360"
+popup/item_0/id = 0
+popup/item_1/text = "1280x720"
+popup/item_1/id = 1
+popup/item_2/text = "1920x1080"
+popup/item_2/id = 2
+popup/item_3/text = "2560x1440"
+popup/item_3/id = 3
+
+[node name="Label2" type="Label" parent="Menu/Video/Video" unique_id=582332106]
+layout_mode = 2
+text = "Mode"
+
+[node name="WindowMode" type="OptionButton" parent="Menu/Video/Video" unique_id=1318082180]
+layout_mode = 2
+selected = 0
+item_count = 3
+popup/item_0/text = "Windowed"
+popup/item_0/id = 0
+popup/item_1/text = "Borderless"
+popup/item_1/id = 1
+popup/item_2/text = "Exclusive Fullscreen"
+popup/item_2/id = 2
+
+[node name="Audio" type="MarginContainer" parent="Menu" unique_id=859480645]
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="Audio" type="VBoxContainer" parent="Menu/Audio" unique_id=1120437834]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Menu/Audio/Audio" unique_id=1683765153]
+layout_mode = 2
+text = "SFX Volume"
+
+[node name="SFX Volume" type="HSlider" parent="Menu/Audio/Audio" unique_id=452923916]
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="Label2" type="Label" parent="Menu/Audio/Audio" unique_id=524124664]
+layout_mode = 2
+text = "Music Volume"
+
+[node name="Music Volume" type="HSlider" parent="Menu/Audio/Audio" unique_id=1642924057]
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="CloseButton" type="Button" parent="." unique_id=1328391682]
+layout_mode = 0
+offset_left = 484.0
+offset_top = 103.0
+offset_right = 519.0
+offset_bottom = 133.0
+text = "X"
+
+[node name="SaveButton" type="Button" parent="." unique_id=1357073546]
+layout_mode = 0
+offset_left = 441.0
+offset_top = 254.0
+offset_right = 513.0
+offset_bottom = 278.0
+text = "Save"

@@ -13,6 +13,7 @@ extends CharacterBody2D
 # remaining regular variables
 var movement_speed: float = 50
 var starting_position: StartingPosition;
+var paused := false;
 
 # @onready variables
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D;
@@ -30,17 +31,22 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	pass
+
 func _physics_process(_delta: float) -> void:
-	if self.target:
-		self.navigation_agent.target_position = target.global_position;
-	if navigation_agent.is_navigation_finished():
-		return;
-
-	var current_agent_position: Vector2 = self.global_position;
-	var next_path_position: Vector2 = navigation_agent.get_next_path_position();
-
-	self.velocity = current_agent_position.direction_to(next_path_position) * movement_speed;
-	move_and_slide();
+	if !self.paused:
+		if self.target:
+			self.navigation_agent.target_position = target.global_position;
+		if navigation_agent.is_navigation_finished():
+			return;
+		
+		var current_agent_position: Vector2 = self.global_position;
+		var next_path_position: Vector2 = navigation_agent.get_next_path_position();
+		
+		self.velocity = current_agent_position.direction_to(next_path_position) * movement_speed;
+		move_and_slide();
+	else:
+		self.velocity = Vector2(0, 0);
+		move_and_slide();
 
 
 #    remaining virtual methods

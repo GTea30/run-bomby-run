@@ -4,6 +4,7 @@ extends Object
 # ## doc comment
 # ---
 # signals
+signal play_sfx(sfx: SfxAudio.Sfx);
 # enums
 enum SceneEnum {
 	START_SCENE,
@@ -13,7 +14,7 @@ enum SceneEnum {
 # static variables
 # @export variables
 # remaining regular variables
-var main_scene: Node;
+var main_scene: Main;
 var game_scene: PackedScene;
 var start_scene: PackedScene;
 var current_scene: SceneNode;
@@ -49,12 +50,30 @@ func load_new_scene(scene: SceneEnum) -> void:
 
 	if current_scene:
 		self.current_scene.change_scene.disconnect(_on_current_scene_change_scene);
+		self.current_scene.open_options.disconnect(_on_current_scene_open_options);
+		self.current_scene.play_sfx.disconnect(_on_current_scene_play_sfx);
 		self.current_scene.queue_free();
 
 	self.current_scene = new_scene;
 	self.current_scene.change_scene.connect(_on_current_scene_change_scene);
+	self.current_scene.open_options.connect(_on_current_scene_open_options);
+	self.current_scene.play_sfx.connect(_on_current_scene_play_sfx);
 
 func _on_current_scene_change_scene(new_scene: SceneEnum) -> void:
 	self.load_new_scene(new_scene);
+
+func _on_current_scene_open_options() -> void:
+	main_scene.options.show();
+	self.current_scene.hide();
+	pass
+
+func show_current_scene() -> void:
+	self.current_scene.show();
+	if self.current_scene is Game:
+		var	current_game_screen: Game = self.current_scene as Game;
+		current_game_screen.toggle_pause();
+
+func _on_current_scene_play_sfx(sfx: SfxAudio.Sfx) -> void:
+	self.play_sfx.emit(sfx);
 
 # inner classes

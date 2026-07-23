@@ -15,6 +15,7 @@ var speed_multiplier: int = 1;
 var score: int = 0;
 var first_beep := false;
 var second_beep := false;
+var paused := false;
 
 # @onready variables
 @onready var player: Player = $Player;
@@ -36,25 +37,32 @@ func _ready() -> void:
 	self.player.caught.connect(_on_player_caught);
 
 func _process(_delta: float) -> void:
-	if counting_down:
-		var new_text_format: String = "Points: %s, Time remaining: %s";
-		var new_text: String = new_text_format % [self.score, self.timer.time_left];
 
-		self.label.text = new_text;
-	else:
-		self.label.text = "Points: %s" % self.score;
-	var current_time: float = self.timer.time_left;
-	if !first_beep:
-		var diff: float = abs(current_time - 2.0);
-		if diff <= 0.01:
-			self.countdown_beep.play();
-			self.first_beep = true;
-	if !second_beep:
-		var diff: float = abs(current_time - 1.0);
-		if diff <= 0.01:
-			self.countdown_beep.play();
-			self.second_beep = true;
+	if !paused:
+		if counting_down:
+			var new_text_format: String = "Points: %s, Time remaining: %s";
+			var new_text: String = new_text_format % [self.score, self.timer.time_left];
+		
+			self.label.text = new_text;
+		else:
+			self.label.text = "Points: %s" % self.score;
+		var current_time: float = self.timer.time_left;
+		if !first_beep:
+			var diff: float = abs(current_time - 2.0);
+			if diff <= 0.01:
+				self.play_sfx.emit(SfxAudio.Sfx.COUNTDOWN_BEEP);
+				# self.countdown_beep.play();
+				self.first_beep = true;
+		if !second_beep:
+			var diff: float = abs(current_time - 1.0);
+			if diff <= 0.01:
+				self.play_sfx.emit(SfxAudio.Sfx.COUNTDOWN_BEEP);
+				# self.countdown_beep.play();
+				self.second_beep = true;
 
+		if Input.is_action_just_pressed("Pause"):
+			self.open_options.emit();
+			self.toggle_pause();
 
 #    _physics_process()
 #    remaining virtual methods
@@ -63,10 +71,12 @@ func _process(_delta: float) -> void:
 func _on_player_to_explode() -> void:
 	self.timer.start();
 	self.counting_down = true;
-	self.countdown_beep.play();
+	self.play_sfx.emit(SfxAudio.Sfx.COUNTDOWN_BEEP);
+	# self.countdown_beep.play();
 
 func _on_timer_timeout() -> void:
-	self.explosion_sfx.play();
+	self.play_sfx.emit(SfxAudio.Sfx.EXPLOSION);
+	# self.explosion_sfx.play();
 	self.counting_down = false;
 	self._reset();
 
@@ -86,5 +96,12 @@ func _reset() -> void:
 		enemy.reset();
 	self.score += 1;
 	pass;
+
+func toggle_pause() -> void:
+	self.timer.paused = !self.timer.paused;
+	self.paused = !self.paused;
+	self.player.is_paused = !self.player.is_paused;
+	for enemy in self.enemies:
+		enemy.paused = !enemy.paused;
 
 # inner classes

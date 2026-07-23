@@ -1,0 +1,29 @@
+[gd_resource type="Theme" format=3 uid="uid://dimq1w3s4buar"]
+
+[ext_resource type="FontFile" uid="uid://cefk3kmlxcf41" path="res://src/resources/ibm_font.res" id="1_rkkia"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1t7cb"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.18039216, 0.18039216, 0.18039216, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c14cj"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.13333334, 0.13333334, 0.13333334, 1)
+
+[resource]
+default_font = ExtResource("1_rkkia")
+default_font_size = 16
+MarginContainer/constants/margin_bottom = 8
+MarginContainer/constants/margin_left = 8
+MarginContainer/constants/margin_right = 8
+MarginContainer/constants/margin_top = 8
+TabContainer/constants/side_margin = 0
+TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_1t7cb")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_c14cj")
+VBoxContainer/constants/separation = 8
