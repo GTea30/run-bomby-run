@@ -4,11 +4,14 @@ Goal: Prototype DONE!
 # Thursday
 Goal: Menus & general playability
 
-Single Scene Game
+- Looping Gameplay
 Audio
-Basic Art
 Options Menu
+- Resolution
+- Fullscreen / Windowed / Borderless
+- Audio Slider
 Start Menu / Scene Management
+Basic Art
 
 # Friday
 Goal: Additional Features

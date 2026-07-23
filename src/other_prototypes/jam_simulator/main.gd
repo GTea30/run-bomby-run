@@ -1,5 +1,5 @@
 # @tool, @icon, @static_unload
-class_name Main
+class_name JamSimMain
 extends Node
 # ## doc comment
 # ---

@@ -1,15 +1,15 @@
 # @tool, @icon, @static_unload
-class_name Main
+class_name SceneNode
 extends Node
 # ## doc comment
 # ---
 # signals
+signal change_scene(scene: SceneManager.SceneEnum);
 # enums
 # constants
 # static variables
 # @export variables
 # remaining regular variables
-var scene_manager: SceneManager;
 # @onready variables
 # ---
 # _static_init()
@@ -17,8 +17,7 @@ var scene_manager: SceneManager;
 # overridden built-in virtual methods:
 #    _init()
 #    _enter_tree()
-func _ready() -> void:
-	self.scene_manager = SceneManager.new(self);
+#    _ready() -> void:
 #    _process()
 #    _physics_process()
 #    remaining virtual methods
