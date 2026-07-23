@@ -10,7 +10,7 @@ Options Menu
 - Resolution
 - Fullscreen / Windowed / Borderless
 - Audio Slider
-Start Menu / Scene Management
+- [X] Start Menu / Scene Management 
 Basic Art
 
 # Friday
