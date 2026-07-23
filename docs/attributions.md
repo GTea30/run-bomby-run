@@ -1,0 +1,2 @@
+- Sci-fi sounds https://kenney.nl/assets/sci-fi-sounds
+- Beep: https://opengameart.org/content/selection-beep

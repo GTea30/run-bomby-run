@@ -4,6 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://b2oese3sm7bus" path="res://icon.svg" id="2_bs6l1"]
 [ext_resource type="PackedScene" uid="uid://c8jnqfdkibxsb" path="res://src/game/player/player.tscn" id="3_pk08u"]
 [ext_resource type="PackedScene" uid="uid://dri64f2c6iix5" path="res://src/game/enemy/enemy.tscn" id="4_wqvko"]
+[ext_resource type="AudioStream" uid="uid://p16w6n8sjfaq" path="res://src/countdown_beep.tres" id="5_xptat"]
+[ext_resource type="AudioStream" uid="uid://dhfoj4d20wk30" path="res://src/explosion_sfx.tres" id="6_yarin"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_q64ga"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
@@ -71,3 +73,10 @@ vertical_alignment = 1
 position = Vector2(602.25, 382)
 scale = Vector2(2.215, 2.215)
 zoom = Vector2(1.515, 1.515)
+
+[node name="CountdownBeep" type="AudioStreamPlayer" parent="." unique_id=950361073]
+stream = ExtResource("5_xptat")
+
+[node name="Explosion" type="AudioStreamPlayer" parent="." unique_id=1485418039]
+stream = ExtResource("6_yarin")
+volume_db = -10.0

@@ -4,14 +4,15 @@ Goal: Prototype DONE!
 # Thursday
 Goal: Menus & general playability
 
-- Looping Gameplay
-Audio
-Options Menu
-- Resolution
-- Fullscreen / Windowed / Borderless
-- Audio Slider
+- [X] Looping Gameplay
+  - [ ] Increasing Difficulty
+- [ ] Audio
+- [ ] Options Menu
+  - Resolution
+  - Fullscreen / Windowed / Borderless
+  - Audio Slider
 - [X] Start Menu / Scene Management 
-Basic Art
+- [ ] Basic Art
 
 # Friday
 Goal: Additional Features

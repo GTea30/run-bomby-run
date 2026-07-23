@@ -13,11 +13,16 @@ extends SceneNode
 var counting_down: bool = false;
 var speed_multiplier: int = 1;
 var score: int = 0;
+var first_beep := false;
+var second_beep := false;
 
 # @onready variables
 @onready var player: Player = $Player;
 @onready var timer: Timer = $Timer;
 @onready var label: Label = $Label;
+
+@onready var countdown_beep: AudioStreamPlayer = $CountdownBeep;
+@onready var explosion_sfx: AudioStreamPlayer = $Explosion;
 
 # ---
 # _static_init()
@@ -38,6 +43,17 @@ func _process(_delta: float) -> void:
 		self.label.text = new_text;
 	else:
 		self.label.text = "Points: %s" % self.score;
+	var current_time: float = self.timer.time_left;
+	if !first_beep:
+		var diff: float = abs(current_time - 2.0);
+		if diff <= 0.01:
+			self.countdown_beep.play();
+			self.first_beep = true;
+	if !second_beep:
+		var diff: float = abs(current_time - 1.0);
+		if diff <= 0.01:
+			self.countdown_beep.play();
+			self.second_beep = true;
 
 
 #    _physics_process()
@@ -47,8 +63,10 @@ func _process(_delta: float) -> void:
 func _on_player_to_explode() -> void:
 	self.timer.start();
 	self.counting_down = true;
+	self.countdown_beep.play();
 
 func _on_timer_timeout() -> void:
+	self.explosion_sfx.play();
 	self.counting_down = false;
 	self._reset();
 
@@ -58,6 +76,8 @@ func _on_player_caught() -> void:
 	self.change_scene.emit(SceneManager.SceneEnum.START_SCENE)
 
 func _reset() -> void:
+	self.first_beep = false;
+	self.second_beep = false;
 	self.timer.stop()
 	self.timer.wait_time = 3.0
 	self.counting_down = false;
