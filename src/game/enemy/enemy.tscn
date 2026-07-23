@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://8sc25pd4hyph" path="res://src/game/enemy/enemy.gd" id="1_juonw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_02yun"]
-size = Vector2(126, 124)
+size = Vector2(145, 141)
 
 [node name="Enemy" type="CharacterBody2D" unique_id=226046125]
 modulate = Color(1, 0, 0, 1)
@@ -19,9 +19,12 @@ shape = SubResource("RectangleShape2D_02yun")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=227348275]
 path_postprocessing = 1
+avoidance_enabled = true
+radius = 25.0
+debug_enabled = true
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1493761059]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1342565159]
-position = Vector2(0, -1)
+position = Vector2(-2.5, -0.5)
 shape = SubResource("RectangleShape2D_02yun")
