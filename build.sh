@@ -6,8 +6,8 @@ mkdir ./out/linux
 mkdir ./out/win32
 
 godot --export-release "Web" out/web/index.html
-godot --export-release "Linux" out/linux/gmtk2026.x86_64
-godot --export-release "Windows Desktop" out/win32/gmtk2026.exe
+godot --export-release "Linux" out/linux/$project_name.x86_64
+godot --export-release "Windows Desktop" out/win32/$project_name.exe
 
 butler push ./out/web/   gtea/$project_name:web   --userversion $version
 butler push ./out/linux/ gtea/$project_name:linux --userversion $version
