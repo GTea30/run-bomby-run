@@ -9,3 +9,11 @@ The next step is to get a basic structure working, a "single-scene" game with fu
 After that, I'll try and see if I can work on 11(seems like a lot lmao) more minigames on Friday, and then polish, bug fixes, and itch.io management on Saturday!
 
 I'm definitely tired and I hope I'm not burning myself out lmao.
+
+# 7/23/2026
+
+Oh boy. Had a bit of a breakdown this morning, when I realized that the "Startup Rush" idea wasn't going to be able to be done on time. Thankfully I was able to recover and get to work in earnest on "Bomby".
+
+Today was mostly just adding the options menu and doing scene management. It's all still a bit messy, but I don't feel too bad about adding on to the project in the future.
+
+The next big steps are working on the actual assets and level design.
