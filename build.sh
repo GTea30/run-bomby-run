@@ -1,5 +1,6 @@
 project_name="gmtk2026"
 version="0.1.0"
+rm -r ./out
 mkdir ./out
 mkdir ./out/web
 mkdir ./out/linux
