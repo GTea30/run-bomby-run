@@ -1,4 +1,5 @@
 # Submission for the GMTK Game Jame 2026
+https://itch.io/jam/gmtk-jam-2026
 https://gtea.itch.io/run-bomby-run
 
 ## Controls
