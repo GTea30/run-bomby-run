@@ -32,12 +32,13 @@ offset_right = 113.0
 offset_bottom = 75.5
 grow_horizontal = 2
 grow_vertical = 2
-current_tab = 0
+current_tab = 1
 clip_tabs = false
 switch_on_drag_hover = false
 use_hidden_tabs_for_min_size = true
 
 [node name="Video" type="MarginContainer" parent="Menu" unique_id=2146177682]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -79,7 +80,6 @@ popup/item_2/text = "Exclusive Fullscreen"
 popup/item_2/id = 2
 
 [node name="Audio" type="MarginContainer" parent="Menu" unique_id=859480645]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
@@ -88,19 +88,23 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="Menu/Audio/Audio" unique_id=1683765153]
 layout_mode = 2
+size_flags_vertical = 1
 text = "SFX Volume"
 
 [node name="SFX Volume" type="HSlider" parent="Menu/Audio/Audio" unique_id=452923916]
 layout_mode = 2
+size_flags_vertical = 1
 max_value = 1.0
 step = 0.01
 value = 1.0
 
 [node name="Label2" type="Label" parent="Menu/Audio/Audio" unique_id=524124664]
+visible = false
 layout_mode = 2
 text = "Music Volume"
 
 [node name="Music Volume" type="HSlider" parent="Menu/Audio/Audio" unique_id=1642924057]
+visible = false
 layout_mode = 2
 max_value = 1.0
 step = 0.01
