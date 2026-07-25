@@ -1,0 +1,46 @@
+[gd_resource type="AnimationNodeStateMachine" format=3 uid="uid://c5s7i0r8s3igy"]
+
+[ext_resource type="AnimationNodeBlendSpace2D" uid="uid://dnteafagn4810" path="res://src/game/player/player_run_blend.tres" id="1_axek3"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_lb1x8"]
+animation = &"Fuse"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_aymqg"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0r077"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lb1x8"]
+advance_mode = 2
+advance_expression = "!velocity"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_uigmc"]
+advance_mode = 2
+advance_expression = "velocity"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_yxoci"]
+advance_mode = 2
+advance_expression = "bomb_mode"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_t8tym"]
+advance_mode = 2
+advance_expression = "bomb_mode"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_g7k81"]
+advance_mode = 2
+advance_expression = "!bomb_mode && velocity"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ix81w"]
+advance_mode = 2
+advance_expression = "!bomb_mode && !velocity"
+
+[resource]
+states/Fuse/node = SubResource("AnimationNodeAnimation_lb1x8")
+states/Fuse/position = Vector2(522, 142)
+states/Idle/node = SubResource("AnimationNodeAnimation_aymqg")
+states/Idle/position = Vector2(749, 45)
+states/Run/node = ExtResource("1_axek3")
+states/Run/position = Vector2(506, 45)
+transitions = ["Start", "Run", SubResource("AnimationNodeStateMachineTransition_0r077"), "Run", "Idle", SubResource("AnimationNodeStateMachineTransition_lb1x8"), "Idle", "Run", SubResource("AnimationNodeStateMachineTransition_uigmc"), "Run", "Fuse", SubResource("AnimationNodeStateMachineTransition_yxoci"), "Idle", "Fuse", SubResource("AnimationNodeStateMachineTransition_t8tym"), "Fuse", "Run", SubResource("AnimationNodeStateMachineTransition_g7k81"), "Fuse", "Idle", SubResource("AnimationNodeStateMachineTransition_ix81w")]
+graph_offset = Vector2(125, -63)

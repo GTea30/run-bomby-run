@@ -1,0 +1,28 @@
+[gd_resource type="AnimationNodeBlendSpace2D" format=3 uid="uid://dnteafagn4810"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_yr2hd"]
+animation = &"Walk Up"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3sks1"]
+animation = &"Walk Right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_aymqg"]
+animation = &"Walk Down"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_lb1x8"]
+animation = &"Walk Left"
+
+[resource]
+blend_mode = 1
+blend_point_0/node = SubResource("AnimationNodeAnimation_yr2hd")
+blend_point_0/pos = Vector2(0, -1)
+blend_point_0/name = &"Walk Up"
+blend_point_1/node = SubResource("AnimationNodeAnimation_3sks1")
+blend_point_1/pos = Vector2(1, 0)
+blend_point_1/name = &"Walk Right"
+blend_point_2/node = SubResource("AnimationNodeAnimation_aymqg")
+blend_point_2/pos = Vector2(0, 1)
+blend_point_2/name = &"Walk Down"
+blend_point_3/node = SubResource("AnimationNodeAnimation_lb1x8")
+blend_point_3/pos = Vector2(-1, 0)
+blend_point_3/name = &"Walk Left"

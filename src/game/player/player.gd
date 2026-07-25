@@ -16,6 +16,7 @@ signal caught;
 # remaining regular variables
 var is_paused: bool = false;
 var starting_position: StartingPosition;
+var bomb_mode: bool = false;
 
 # @onready variables
 @onready var hitbox: Area2D = $Area2D
@@ -44,7 +45,8 @@ func _process(delta: float) -> void:
 
 		move_and_slide();
 
-		if Input.is_action_pressed("Explode"):
+		if Input.is_action_just_pressed("Explode"):
+			self.bomb_mode = true;
 			self.is_paused = true;
 			self.to_explode.emit();
 
@@ -56,7 +58,6 @@ func _process(delta: float) -> void:
 
 func reset() -> void:
 	self.starting_position.reset_to_starting_position(self);
-	self.is_paused = false;
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	if area.get_parent() is Enemy:

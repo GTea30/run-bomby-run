@@ -1,0 +1,6 @@
+Godot Licence: https://godotengine.org/license/
+Beep SFX: https://opengameart.org/content/selection-beep
+Explosion SFX: https://kenney.nl/assets/sci-fi-sounds
+Font file by VileR: https://int10h.org/
+
+All art and code by Gtea: https://github.com/GTea30
