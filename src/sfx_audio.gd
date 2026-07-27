@@ -44,4 +44,3 @@ func play_sound(sfx: Sfx) -> void:
 		Sfx.COUNTDOWN_BEEP: self.play_countdown_beep();
 
 # inner classes
-

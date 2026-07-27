@@ -4,9 +4,11 @@ extends CanvasLayer
 # ## doc comment
 # ---
 # signals
+@warning_ignore_start("unused_signal")
 signal change_scene(scene: SceneManager.SceneEnum);
 signal open_options();
 signal play_sfx(sfx: SfxAudio.Sfx)
+@warning_ignore_restore("unused_signal")
 # enums
 # constants
 # static variables

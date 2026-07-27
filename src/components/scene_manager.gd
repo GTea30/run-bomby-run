@@ -55,9 +55,12 @@ func load_new_scene(scene: SceneEnum) -> void:
 		self.current_scene.queue_free();
 
 	self.current_scene = new_scene;
-	self.current_scene.change_scene.connect(_on_current_scene_change_scene);
-	self.current_scene.open_options.connect(_on_current_scene_open_options);
-	self.current_scene.play_sfx.connect(_on_current_scene_play_sfx);
+	if self.current_scene.change_scene.connect(_on_current_scene_change_scene):
+		print("Current Scene: Change Scene connection error");
+	if self.current_scene.open_options.connect(_on_current_scene_open_options):
+		print("Current Scene: Open Options connection error");
+	if self.current_scene.play_sfx.connect(_on_current_scene_play_sfx):
+		print ("Current Scene: Play SFX connection error");
 
 func _on_current_scene_change_scene(new_scene: SceneEnum) -> void:
 	self.load_new_scene(new_scene);

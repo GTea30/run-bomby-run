@@ -25,10 +25,13 @@ func _init() -> void:
 #    _enter_tree()
 func _ready() -> void:
 	self.scene_manager = SceneManager.new(self);
-	self.scene_manager.play_sfx.connect(_on_scene_manager_play_sfx);
-	
-	self.options.set_volume.connect(_on_options_set_volume);
-	self.options.closing.connect(_on_options_closing);
+	if self.scene_manager.play_sfx.connect(_on_scene_manager_play_sfx):
+		print("Scene manager play sfx connect error");
+
+	if self.options.set_volume.connect(_on_options_set_volume):
+		print("options set volume connect error");
+	if self.options.closing.connect(_on_options_closing):
+		print("options closing connect error");
 
 #    _process()
 #    _physics_process()

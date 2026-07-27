@@ -19,8 +19,10 @@ extends SceneNode;
 #    _init()
 #    _enter_tree()
 func _ready() -> void:
-	self.start_button.pressed.connect(_on_start_button_pressed);
-	self.option_button.pressed.connect(_on_option_button_pressed);
+	if self.start_button.pressed.connect(_on_start_button_pressed):
+		print("Start Button Pressed Connect Error");
+	if self.option_button.pressed.connect(_on_option_button_pressed):
+		print("Option Button Pressed Connect Error");
 	# var screen_size: Vector2i = DisplayServer.window_get_size();
 	# self.start_button.position.x = screen_size.x / 2.0;
 	# print(screen_size.y)

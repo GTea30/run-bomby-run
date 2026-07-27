@@ -28,7 +28,8 @@ var bomb_mode: bool = false;
 #    _enter_tree()
 func _ready() -> void:
 	self.starting_position = StartingPosition.new(self.global_position);
-	self.hitbox.area_entered.connect(_on_hitbox_area_entered);
+	if self.hitbox.area_entered.connect(_on_hitbox_area_entered):
+		print("hitbox area entered connection error");
 func _process(delta: float) -> void:
 	if !self.is_paused:
 		if Input.is_action_pressed("Move Up"):
@@ -43,6 +44,7 @@ func _process(delta: float) -> void:
 		self.velocity.x = move_toward(self.velocity.x, 0, delta * 1000);
 		self.velocity.y = move_toward(self.velocity.y, 0, delta * 1000);
 
+		@warning_ignore("return_value_discarded")
 		move_and_slide();
 
 		if Input.is_action_just_pressed("Explode"):

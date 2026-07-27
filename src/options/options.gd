@@ -39,13 +39,19 @@ func _init() -> void:
 #    _enter_tree()
 func _ready() -> void:
 	self.set_menu_nodes();
-	self.resolution_node.item_selected.connect(_on_resolution_node_item_selected);
-	self.window_mode_node.item_selected.connect(_on_window_mode_item_selected);
+	if self.resolution_node.item_selected.connect(_on_resolution_node_item_selected):
+		print("Resolution node item selected connection error");
+	if self.window_mode_node.item_selected.connect(_on_window_mode_item_selected):
+		print("Window mode node item selected connection error");
 
-	self.close_button.pressed.connect(_on_close_button_pressed);
-	self.save_button.pressed.connect(_on_save_button_pressed);
+	if self.close_button.pressed.connect(_on_close_button_pressed):
+		print("Close button pressed connection error");
 
-	self.sfx_volume_node.value_changed.connect(_on_sfx_volume_node_value_changed);
+	if self.save_button.pressed.connect(_on_save_button_pressed):
+		print("Save button pressed connection error");
+
+	if self.sfx_volume_node.value_changed.connect(_on_sfx_volume_node_value_changed):
+		print("SFX Volume Node Value Changed Connection Error");
 
 #    _process()
 #    _physics_process()
@@ -85,7 +91,6 @@ func load_settings() -> void:
 		self.window_mode = new_window_mode;
 
 		var new_sfx_volume: float = self.settings.get_value("Audio", "sfx_volume");
-		var new_music_volume: float = self.settings.get_value("Audio", "music_volume");
 		self.sfx_volume = new_sfx_volume;
 		self.music_volume = new_sfx_volume;
 
@@ -152,7 +157,8 @@ func _on_save_button_pressed() -> void:
 	self.settings.set_value("Audio", "sfx_volume", self.sfx_volume);
 	self.settings.set_value("Audio", "music_volume", self.music_volume);
 
-	self.settings.save("user://settings.cfg");
+	if self.settings.save("user://settings.cfg") != OK:
+		print("Saving settings error");
 
 	self.set_settings();
 

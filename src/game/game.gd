@@ -29,6 +29,8 @@ var state: State = State.PLAYING_ROUND:
 		match state:
 			State.STARTING_ROUND: self.label.text = "Round %s\nPress Enter to Continue" % self.round_count;
 			State.ENDING_ROUND_WIN:
+				self.score += 1;
+				self.round_count += 1;
 				self.label.text = "Round Won!\nPress Enter to Continue";
 				self.set_enemy_pause(true);
 			State.ENDING_ROUND_LOSS:
@@ -51,12 +53,16 @@ var round_count: int = 1;
 #    _init()
 #    _enter_tree()
 func _ready() -> void:
-	self.explosion_timer.timeout.connect(_on_explosion_timer_timeout);
-	self.player.to_explode.connect(_on_player_to_explode);
-	self.timer.timeout.connect(_on_timer_timeout);
-	self.player.caught.connect(_on_player_caught);
+	if self.explosion_timer.timeout.connect(_on_explosion_timer_timeout):
+		print("Explosion timer timeout connect error!");
+	if self.player.to_explode.connect(_on_player_to_explode):
+		print("Player to exploed connect error!");
+	if self.timer.timeout.connect(_on_timer_timeout):
+		print("timer timeout connect error")
+	if self.player.caught.connect(_on_player_caught):
+		print("Player caught connect error");
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if self.state == State.STARTING_ROUND:
 		if Input.is_action_just_pressed("Confirm"):
 			self.start_round();
@@ -108,7 +114,6 @@ func _on_player_to_explode() -> void:
 func _on_timer_timeout() -> void:
 	# self.explosion_sfx.play();
 	self.counting_down = false;
-	self.round_count += 1;
 	self.state = State.ENDING_ROUND_WIN;
 
 func _on_player_caught() -> void:
@@ -125,7 +130,6 @@ func _reset() -> void:
 	self.player.reset();
 	for enemy in self.enemies:
 		enemy.reset();
-	self.score += 1;
 	self.player.bomb_mode = false;
 
 func start_round() -> void:
@@ -147,7 +151,8 @@ func trigger_explosion() -> void:
 	var coord := Vector2i(x_coord, y_coord);
 
 	var new_explosion: AnimatedSprite2D = self.explosion.instantiate();
-	new_explosion.animation_finished.connect(func () -> void: new_explosion.queue_free());
+	if new_explosion.animation_finished.connect(func () -> void: new_explosion.queue_free()):
+		print("New Explosion Animation Finish Connect Error");
 	new_explosion.position = coord;
 	self.add_child(new_explosion);
 	new_explosion.play();
