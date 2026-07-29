@@ -1,6 +1,6 @@
 # @tool, @icon, @static_unload
 class_name Player
-extends CharacterBody2D
+extends Actor
 # ## doc comment
 # ---
 # signals
@@ -11,11 +11,7 @@ signal caught;
 # constants
 # static variables
 # @export variables
-@export var speed: int = 10;
-
 # remaining regular variables
-var is_paused: bool = false;
-var starting_position: StartingPosition;
 var bomb_mode: bool = false;
 
 # @onready variables
@@ -27,11 +23,12 @@ var bomb_mode: bool = false;
 #    _init()
 #    _enter_tree()
 func _ready() -> void:
-	self.starting_position = StartingPosition.new(self.global_position);
+	super();
 	if self.hitbox.area_entered.connect(_on_hitbox_area_entered):
 		print("hitbox area entered connection error");
+
 func _process(delta: float) -> void:
-	if !self.is_paused:
+	if !self.paused:
 		if Input.is_action_pressed("Move Up"):
 			self.velocity.y = -speed * delta * 1000;
 		if Input.is_action_pressed("Move Down"):
@@ -49,7 +46,7 @@ func _process(delta: float) -> void:
 
 		if Input.is_action_just_pressed("Explode"):
 			self.bomb_mode = true;
-			self.is_paused = true;
+			self.paused = true;
 			self.to_explode.emit();
 
 
@@ -58,13 +55,10 @@ func _process(delta: float) -> void:
 # overridden custom methods
 # remaining methods
 
-func reset() -> void:
-	self.starting_position.reset_to_starting_position(self);
-
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	if area.get_parent() is Enemy:
 		self.caught.emit();
-		self.is_paused = true;
+		self.paused = true;
 		self.queue_free();
 	pass
 

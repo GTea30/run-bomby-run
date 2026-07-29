@@ -508,7 +508,6 @@ graph_offset = Vector2(-191, -54)
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_jipju"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_w47vf"]
-graph_offset = Vector2(-355, 64)
 nodes/output/position = Vector2(440, 120)
 nodes/StateMachine/node = SubResource("AnimationNodeStateMachine_1swrw")
 nodes/StateMachine/position = Vector2(-60, 120)
@@ -520,6 +519,7 @@ node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"StateMachine"
 material = SubResource("ShaderMaterial_1swrw")
 script = ExtResource("1_juonw")
 shade = Color(1, 1, 1, 1)
+speed = 50
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=904819347]
 use_parent_material = true

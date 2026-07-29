@@ -5,7 +5,7 @@ extends SceneNode
 # ---
 # signals
 # enums
-enum State {
+enum GameState {
 	STARTING_ROUND,
 	PLAYING_ROUND,
 	ENDING_ROUND_WIN,
@@ -23,17 +23,17 @@ var score: int = 0;
 var first_beep := false;
 var second_beep := false;
 var paused := false;
-var state: State = State.PLAYING_ROUND:
+var state: GameState = GameState.PLAYING_ROUND:
 	set(new_state):
 		state = new_state;
 		match state:
-			State.STARTING_ROUND: self.label.text = "Round %s\nPress Enter to Continue" % self.round_count;
-			State.ENDING_ROUND_WIN:
+			GameState.STARTING_ROUND: self.label.text = "Round %s\nPress Enter to Continue" % self.round_count;
+			GameState.ENDING_ROUND_WIN:
 				self.score += 1;
 				self.round_count += 1;
 				self.label.text = "Round Won!\nPress Enter to Continue";
 				self.set_enemy_pause(true);
-			State.ENDING_ROUND_LOSS:
+			GameState.ENDING_ROUND_LOSS:
 				self.label.text = "Game Over Total Score: %s\nPress Enter to return to Title Screen" % self.score;
 				self.timer.paused = true;
 				self.set_enemy_pause(false)
@@ -63,11 +63,11 @@ func _ready() -> void:
 		print("Player caught connect error");
 
 func _process(_delta: float) -> void:
-	if self.state == State.STARTING_ROUND:
+	if self.state == GameState.STARTING_ROUND:
 		if Input.is_action_just_pressed("Confirm"):
 			self.start_round();
-			self.state = State.PLAYING_ROUND;
-	if self.state == State.PLAYING_ROUND:
+			self.state = GameState.PLAYING_ROUND;
+	if self.state == GameState.PLAYING_ROUND:
 		if !paused:
 			if counting_down:
 				var new_text_format: String = "Points: %s, Time remaining: %.2f";
@@ -93,11 +93,11 @@ func _process(_delta: float) -> void:
 			if Input.is_action_just_pressed("Pause"):
 				self.open_options.emit();
 				self.toggle_pause();
-	if self.state == State.ENDING_ROUND_WIN:
+	if self.state == GameState.ENDING_ROUND_WIN:
 		if Input.is_action_just_pressed("Confirm"):
 			self._reset();
-			self.state = State.STARTING_ROUND;
-	if self.state == State.ENDING_ROUND_LOSS:
+			self.state = GameState.STARTING_ROUND;
+	if self.state == GameState.ENDING_ROUND_LOSS:
 		if Input.is_action_just_pressed("Confirm"):
 			self.change_scene.emit(SceneManager.SceneEnum.START_SCENE);
 
@@ -114,12 +114,12 @@ func _on_player_to_explode() -> void:
 func _on_timer_timeout() -> void:
 	# self.explosion_sfx.play();
 	self.counting_down = false;
-	self.state = State.ENDING_ROUND_WIN;
+	self.state = GameState.ENDING_ROUND_WIN;
 
 func _on_player_caught() -> void:
 	self.counting_down = false;
 	self.label.text = "You Lose!";
-	self.state = State.ENDING_ROUND_LOSS;
+	self.state = GameState.ENDING_ROUND_LOSS;
 
 func _reset() -> void:
 	self.first_beep = false;
@@ -133,15 +133,15 @@ func _reset() -> void:
 	self.player.bomb_mode = false;
 
 func start_round() -> void:
-	self.player.is_paused = false;
+	self.player.set_pause(false);
 	self.set_enemy_pause(false);
 
 func toggle_pause() -> void:
 	self.timer.paused = !self.timer.paused;
 	self.paused = !self.paused;
-	self.player.is_paused = !self.player.is_paused;
+	self.player.toggle_pause();
 	for enemy in self.enemies:
-		enemy.paused = !enemy.paused;
+		enemy.toggle_pause();
 
 func trigger_explosion() -> void:
 	# Spawn explosion sprite at random coords of screen
@@ -160,10 +160,10 @@ func trigger_explosion() -> void:
 
 func set_enemy_pause(new_paused: bool) -> void:
 	for enemy in self.enemies:
-		enemy.paused = new_paused;
+		enemy.set_pause(new_paused);
 
 func _on_explosion_timer_timeout() -> void:
-	if self.state == State.ENDING_ROUND_WIN:
+	if self.state == GameState.ENDING_ROUND_WIN:
 		self.trigger_explosion();
 
 # inner classes

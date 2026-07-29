@@ -1,6 +1,6 @@
 # @tool, @icon, @static_unload
 class_name Enemy
-extends CharacterBody2D
+extends Actor
 # ## doc comment
 # ---
 # signals
@@ -13,8 +13,6 @@ extends CharacterBody2D
 
 # remaining regular variables
 var movement_speed: float = 50
-var starting_position: StartingPosition;
-var paused := false;
 
 # @onready variables
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D;
@@ -26,38 +24,17 @@ var paused := false;
 #    _init()
 #    _enter_tree()
 func _ready() -> void:
-	var mat: ShaderMaterial = self.material as ShaderMaterial;
-	mat.set_shader_parameter("shade", shade);
-	self.starting_position = StartingPosition.new(self.global_position);
-	self.navigation_agent.path_desired_distance = 4.0;
-	self.navigation_agent.target_desired_distance = 4.0;
+	super();
+	self._set_material();
+	self.state_machine.push_state(EnemyMoveState.new(self))
 
-func _process(_delta: float) -> void:
-	pass
-
-func _physics_process(_delta: float) -> void:
-	if !self.paused:
-		if self.target:
-			self.navigation_agent.target_position = target.global_position;
-		# if navigation_agent.is_navigation_finished():
-		# 	return;t
-		#
-		var current_agent_position: Vector2 = self.global_position;
-		var next_path_position: Vector2 = navigation_agent.get_next_path_position();
-
-		self.velocity = current_agent_position.direction_to(next_path_position) * movement_speed;
-		@warning_ignore("return_value_discarded")
-		move_and_slide();
-	else:
-		self.velocity = Vector2(0, 0);
-		@warning_ignore("return_value_discarded")
-		move_and_slide();
-
-
+#    _process()
+#    _physics_process()
 #    remaining virtual methods
 # overridden custom methods
 # remaining methods
-func reset() -> void:
-	self.starting_position.reset_to_starting_position(self);
+func _set_material() -> void:
+	var mat: ShaderMaterial = self.material as ShaderMaterial;
+	mat.set_shader_parameter("shade", shade);
 
 # inner classes

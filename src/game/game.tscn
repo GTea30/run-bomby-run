@@ -87,6 +87,7 @@ tile_set = SubResource("TileSet_w47vf")
 
 [node name="Player" parent="." unique_id=226046125 instance=ExtResource("3_pk08u")]
 position = Vector2(323, 160)
+speed = 10
 
 [node name="Enemy" parent="." unique_id=75402593 node_paths=PackedStringArray("target") instance=ExtResource("4_wqvko")]
 material = SubResource("ShaderMaterial_n7s5x")
