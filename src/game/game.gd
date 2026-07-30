@@ -38,11 +38,13 @@ var state: GameState = GameState.PLAYING_ROUND:
 				self.timer.paused = true;
 				self.set_enemy_pause(false)
 var round_count: int = 1;
+var map: Map;
 
 # @onready variables
 @onready var player: Player = $Player;
 @onready var timer: Timer = $Timer;
 @onready var label: Label = $Label;
+@onready var tile_map_layer: MapBG = $TileMapLayer;
 
 @onready var explosion_timer: Timer = $ExplosionTimer;
 
@@ -53,14 +55,19 @@ var round_count: int = 1;
 #    _init()
 #    _enter_tree()
 func _ready() -> void:
+	var actors: Array[Actor] = self._pack_actors();
+	actors.push_back(player);
+	self.map = Map.new(tile_map_layer, actors);
 	if self.explosion_timer.timeout.connect(_on_explosion_timer_timeout):
-		print("Explosion timer timeout connect error!");
+		print("Explosion Timer: Timeout connect error!");
 	if self.player.to_explode.connect(_on_player_to_explode):
-		print("Player to exploed connect error!");
+		print("Player: To Exploed connect error!");
 	if self.timer.timeout.connect(_on_timer_timeout):
-		print("timer timeout connect error")
+		print("Timer: Timeout connect error")
 	if self.player.caught.connect(_on_player_caught):
-		print("Player caught connect error");
+		print("Player: Caught connect error");
+	if self.player.request_move.connect(_on_actor_request_move):
+		print("Player: Request Move");
 
 func _process(_delta: float) -> void:
 	if self.state == GameState.STARTING_ROUND:
@@ -165,5 +172,23 @@ func set_enemy_pause(new_paused: bool) -> void:
 func _on_explosion_timer_timeout() -> void:
 	if self.state == GameState.ENDING_ROUND_WIN:
 		self.trigger_explosion();
+
+func _pack_actors() -> Array[Actor]:
+	var new_actors: Array[Actor] = [];
+
+	new_actors.push_back(player);
+	for enemy in self.enemies:
+		new_actors.push_back(enemy);
+
+	return new_actors;
+
+func _on_actor_request_move(actor: Actor, dir: Vector2i, callback: Callable) -> void:
+	var destination: Vector2i = actor.grid_position + dir;
+	if self.map.is_traversable(destination):
+		self.map.update_actor_pos(actor, destination);
+		callback.call(dir);
+		pass;
+	else:
+		actor.velocity = Vector2.ZERO;
 
 # inner classes

@@ -26,7 +26,7 @@ var movement_speed: float = 50
 func _ready() -> void:
 	super();
 	self._set_material();
-	self.state_machine.push_state(EnemyMoveState.new(self))
+	# self.state_machine.push_state(EnemyMoveState.new(self))
 
 #    _process()
 #    _physics_process()

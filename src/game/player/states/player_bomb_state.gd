@@ -36,6 +36,9 @@ func update(_delta: float) -> void:
 func physics_update(_delta: float) -> void:
 	pass;
 
+func call_leave_signal() -> void:
+	self.leave_state.emit();
+
 # remaining private methods
 # remaining signal callbacks
 # inner classes

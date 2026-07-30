@@ -9,14 +9,16 @@ extends RefCounted
 # static variables
 # @export variables
 # remaining regular variables
-var state_stack: Array[State] = [IdleState.new()]
+var state_stack: Array[State];
 
 # @onready variables
 
 # _static_init()
 # remaining static methods
 # overridden built-in virtual methods:
-#    _init()
+func _init(initial_state: State = IdleState.new()) -> void:
+	self.state_stack.push_back(initial_state);
+	pass;
 #    remaining virtual methods
 # overridden custom methods
 # remaining public methods
