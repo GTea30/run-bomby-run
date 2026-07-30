@@ -56,8 +56,13 @@ var map: Map;
 #    _enter_tree()
 func _ready() -> void:
 	var actors: Array[Actor] = self._pack_actors();
-	actors.push_back(player);
 	self.map = Map.new(tile_map_layer, actors);
+
+	for enemy in self.enemies:
+		enemy.set_map(self.map);
+		if enemy.request_move.connect(_on_actor_request_move):
+			printerr("Enemy: Request Move connection error")
+
 	if self.explosion_timer.timeout.connect(_on_explosion_timer_timeout):
 		print("Explosion Timer: Timeout connect error!");
 	if self.player.to_explode.connect(_on_player_to_explode):
@@ -66,6 +71,7 @@ func _ready() -> void:
 		print("Timer: Timeout connect error")
 	if self.player.caught.connect(_on_player_caught):
 		print("Player: Caught connect error");
+
 	if self.player.request_move.connect(_on_actor_request_move):
 		print("Player: Request Move");
 
@@ -138,6 +144,7 @@ func _reset() -> void:
 	for enemy in self.enemies:
 		enemy.reset();
 	self.player.bomb_mode = false;
+	self.map.set_actors(self._pack_actors());
 
 func start_round() -> void:
 	self.player.set_pause(false);

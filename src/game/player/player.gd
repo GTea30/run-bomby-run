@@ -56,7 +56,7 @@ func _on_request_move(dir: Vector2i, callback: Callable) -> void:
 	pass;
 
 func reset() -> void:
-	self.global_position = self.starting_position;
+	super();
 	if self.bomb_state:
 		self.bomb_state.leave_state.emit();
 	self.set_pause(true);

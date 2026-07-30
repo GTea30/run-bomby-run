@@ -19,9 +19,7 @@ var actors: Dictionary[Vector2i, Actor];
 # overridden built-in virtual methods:
 func _init(init_bg: MapBG, init_actors: Array[Actor]) -> void:
 	self.bg = init_bg;
-	self.actors = {};
-	for actor in init_actors:
-		self.actors[actor.grid_position] = actor;
+	set_actors(init_actors);
 
 #    remaining virtual methods
 # overridden custom methods
@@ -31,14 +29,20 @@ func is_traversable(coord: Vector2i) -> bool:
 	var is_floor: bool = tile == MapBG.MapTileID.FLOOR;
 
 	var potential_actor:Actor = self.actors.get(coord);
-	return (
-		is_floor &&
-		!potential_actor
-	);
+	if potential_actor:
+		return is_floor && (potential_actor is Player);
+	else:
+		return is_floor;
 
 func update_actor_pos(actor: Actor, destination: Vector2i) -> void:
 	self.actors[destination] = actor;
 	self.actors[actor.current_grid_pos()] = null;
+
+
+func set_actors(actors_to_set: Array[Actor]) -> void:
+	self.actors = {};
+	for actor in actors_to_set:
+		self.actors[actor.grid_position] = actor;
 
 # remaining private methods
 # remaining signal callbacks

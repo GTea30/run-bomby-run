@@ -43,7 +43,7 @@ func physics_update(delta: float) -> void:
 		self.leave_state.emit()
 		return;
 
-	self.actor.global_position = self.actor.global_position.move_toward(self.destination, delta * 150);
+	self.actor.global_position = self.actor.global_position.move_toward(self.destination, delta * (25*log(actor.speed + 1)));
 	# self.actor.move_and_slide();
 
 

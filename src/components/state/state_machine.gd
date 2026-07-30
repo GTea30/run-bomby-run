@@ -35,6 +35,10 @@ func push_state(new_state: State) -> void:
 func get_state() -> State:
 	return self.state_stack[-1];
 
+func remove_current_state() -> void:
+	var immediete_state: State = self.state_stack.pop_back();
+	immediete_state.exit();
+
 # remaining private methods
 func _enter_top_state() -> void:
 	self.state_stack[-1].enter();

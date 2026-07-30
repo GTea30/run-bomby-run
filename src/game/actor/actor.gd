@@ -18,13 +18,13 @@ enum AnimationState {
 # constants
 # static variables
 # @export variables
-@export var speed: int;
 
 # remaining regular variables
 var paused: bool;
 var starting_position: Vector2;
 var state_machine: StateMachine;
 var current_animation_state := AnimationState.IDLE;
+var speed: float = 1;
 
 var grid_position: Vector2i;
 
@@ -51,6 +51,7 @@ func _physics_process(delta: float) -> void:
 # remaining public methods
 func reset() -> void:
 	self.global_position = self.starting_position;
+	self.grid_position = global_as_grid();
 
 func toggle_pause() -> void:
 	self.paused = !self.paused;
