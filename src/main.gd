@@ -48,39 +48,4 @@ func _on_options_closing() -> void:
 	self.options.hide();
 	self.scene_manager.show_current_scene();
 
-# func _load_settings() -> void:
-# 	self.settings = ConfigFile.new();
-#
-# 	var existing_settings_err: int = self.settings.load("user://settings.cfg");
-#
-# 	if existing_settings_err:
-# 		self.settings.set_value("Display", "screen_width", 1920);
-# 		self.settings.set_value("Display", "screen_height", 1080);
-# 		self.settings.set_value("Display", "mode", "Exclusive Fullscreen");
-#
-# 		self.settings.set_value("Audio", "sfx_volume", 1.0);
-# 		self.settings.set_value("Audio", "music_volume", 1.0);
-#
-# 		var err: Error = self.settings.save("user://settings.cfg");
-# 		if err:
-# 			print("Saving Error: %s" % err)
-#
-# func _set_settings() -> void:
-# 	# Video
-# 	var screen_width: int = self.settings.get_value("Display", "screen_width");
-# 	var screen_height: int = self.settings.get_value("Display", "screen_height");
-# 	var window_mode: String = self.settings.get_value("Display", "mode");
-#
-# 	DisplayServer.window_set_size(Vector2i(screen_width, screen_height));
-#
-# 	match window_mode:
-# 		"Windowed":
-# 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED);
-# 		"Borderless":
-# 			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, true);
-# 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN);
-# 		"Exclusive Fullscreen":
-# 			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false);
-# 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN);
-
 # inner classes
