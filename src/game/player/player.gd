@@ -4,6 +4,7 @@ extends Actor
 # ## doc comment
 # ---
 # signals
+@warning_ignore("unused_signal")
 signal to_explode;
 signal caught;
 
@@ -24,32 +25,14 @@ var bomb_mode: bool = false;
 #    _enter_tree()
 func _ready() -> void:
 	super();
+
+	var player_movement_state: PlayerMoveState = PlayerMoveState.new(self);
+	self.state_machine.push_state(player_movement_state);
+
 	if self.hitbox.area_entered.connect(_on_hitbox_area_entered):
 		print("hitbox area entered connection error");
 
-func _process(delta: float) -> void:
-	if !self.paused:
-		if Input.is_action_pressed("Move Up"):
-			self.velocity.y = -speed * delta * 1000;
-		if Input.is_action_pressed("Move Down"):
-			self.velocity.y = speed * delta * 1000;
-		if Input.is_action_pressed("Move Left"):
-			self.velocity.x = -speed * delta * 1000;
-		if Input.is_action_pressed("Move Right"):
-			self.velocity.x = +speed * delta * 1000;
-
-		self.velocity.x = move_toward(self.velocity.x, 0, delta * 1000);
-		self.velocity.y = move_toward(self.velocity.y, 0, delta * 1000);
-
-		@warning_ignore("return_value_discarded")
-		move_and_slide();
-
-		if Input.is_action_just_pressed("Explode"):
-			self.bomb_mode = true;
-			self.paused = true;
-			self.to_explode.emit();
-
-
+#     _process()
 #    _physics_process()
 #    remaining virtual methods
 # overridden custom methods
@@ -58,7 +41,7 @@ func _process(delta: float) -> void:
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	if area.get_parent() is Enemy:
 		self.caught.emit();
-		self.paused = true;
+		self.set_pause(true);
 		self.queue_free();
 	pass
 

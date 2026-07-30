@@ -30,6 +30,9 @@ func push_state(new_state: State) -> void:
 	self.state_stack.push_back(new_state);
 	self._enter_top_state();
 
+func get_state() -> State:
+	return self.state_stack[-1];
+
 # remaining private methods
 func _enter_top_state() -> void:
 	self.state_stack[-1].enter();
@@ -42,6 +45,5 @@ func _on_current_state_leave_state() -> void:
 	var last_state: State = self.state_stack.pop_back();
 	last_state.exit();
 	last_state.leave_state.disconnect(_on_current_state_leave_state);
-	self._enter_top_state();
 
 # inner classes

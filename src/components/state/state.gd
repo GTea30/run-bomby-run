@@ -4,6 +4,7 @@ extends RefCounted
 # ## doc comment
 
 # signals
+@warning_ignore("unused_signal")
 signal leave_state;
 # enums
 # constants
