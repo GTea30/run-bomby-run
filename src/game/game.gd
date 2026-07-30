@@ -125,7 +125,6 @@ func _on_player_to_explode() -> void:
 	# self.countdown_beep.play();
 
 func _on_timer_timeout() -> void:
-	# self.explosion_sfx.play();
 	self.counting_down = false;
 	self.state = GameState.ENDING_ROUND_WIN;
 

@@ -15,6 +15,7 @@ enum MapTileID {
 # @export variables
 # remaining regular variables
 var data: Dictionary[Vector2i, MapTileID] = {};
+
 # @onready variables
 
 # _static_init()
@@ -24,7 +25,6 @@ var data: Dictionary[Vector2i, MapTileID] = {};
 #    _enter_tree()
 func _ready() -> void:
 	init_data();
-	# pass;
 
 #    _process()
 #    _physics_process()

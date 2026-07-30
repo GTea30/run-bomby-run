@@ -20,7 +20,6 @@ var unavailable_coords: Dictionary[Vector2i, bool];
 var path: Dictionary [Vector2i, Vector2i]
 
 # @onready variables
-
 # _static_init()
 # remaining static methods
 # overridden built-in virtual methods:
@@ -39,7 +38,6 @@ func exit() -> void:
 	pass;
 
 func update(_delta: float) -> void:
-	# TODO: Potentially unneeded if
 	if self.target:
 		# Look for path to player;
 		self.starting_pos = self.actor.grid_position;

@@ -5,6 +5,7 @@ extends CharacterBody2D
 
 # signals
 signal unpause;
+@warning_ignore("unused_signal")
 signal request_move(actor: Actor, dir: Vector2i, callback: Callable);
 
 # enums
@@ -69,7 +70,7 @@ func grid_as_global() -> Vector2:
 	return ((self.grid_position as Vector2) * Vector2(16, 16)) + Vector2(8, 8);
 
 func global_as_grid() -> Vector2i:
-	return (((self.global_position as Vector2i)) / Vector2i(16, 16));
+	return (((self.global_position)) / Vector2(16, 16)) as Vector2i;
 
 # remaining private methods
 func _set_pause_state() -> void:
