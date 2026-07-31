@@ -1,5 +1,5 @@
 project_name="run-bomby-run"
-version="0.2.0"
+version="0.3.0"
 rm -r ./out
 mkdir ./out
 mkdir ./out/web

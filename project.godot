@@ -10,8 +10,8 @@ config_version=5
 
 [application]
 
-config/name="GMTK 2026"
-config/version="0.1.0"
+config/name="Run Bomby Run"
+config/version="0.3.0"
 run/main_scene="uid://brfjdyw5gtwqd"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="uid://c48mqgmkobb01"
