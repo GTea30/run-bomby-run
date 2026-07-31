@@ -25,6 +25,7 @@ var bomb_state: PlayerBombState;
 #    _init()
 #    _enter_tree()
 func _ready() -> void:
+	self.speed = 100;
 	var idle_state := PlayerIdleState.new(self);
 	if idle_state.request_move.connect(_on_request_move):
 		print("Idle State: Request Move connection error!");
