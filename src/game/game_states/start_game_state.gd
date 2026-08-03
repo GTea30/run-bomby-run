@@ -23,7 +23,7 @@ func _init(init_game: Game) -> void:
 # remaining public methods
 func enter() -> void:
 	print(self.name)
-	self.game.label.text = "Round %s\nPress Enter to Continue" % self.game.round_count;
+	self.game.label.text = "Round %s; Total Score: %s\nPress Enter to Continue" % [self.game.round_count, self.game.total_score];
 	self.game.round_score = 1000;
 
 func exit() -> void:
