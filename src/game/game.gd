@@ -19,7 +19,8 @@ enum GameState {
 # remaining regular variables
 var counting_down: bool = false;
 var speed_multiplier: int = 1;
-var score: int = 0;
+var round_score: int = 1000;
+var total_score: int = 0;
 var first_beep := false;
 var second_beep := false;
 var paused := false;
@@ -27,14 +28,16 @@ var state: GameState = GameState.PLAYING_ROUND:
 	set(new_state):
 		state = new_state;
 		match state:
-			GameState.STARTING_ROUND: self.label.text = "Round %s\nPress Enter to Continue" % self.round_count;
+			GameState.STARTING_ROUND:
+				self.label.text = "Round %s\nPress Enter to Continue" % self.round_count;
+				self.round_score = 1000;
 			GameState.ENDING_ROUND_WIN:
-				self.score += 1;
+				self.total_score += self.round_score;
 				self.round_count += 1;
-				self.label.text = "Round Won!\nPress Enter to Continue";
+				self.label.text = "Round Won! Current Score: %s\nPress Enter to Continue" % self.total_score;
 				self.set_enemy_pause(true);
 			GameState.ENDING_ROUND_LOSS:
-				self.label.text = "Game Over Total Score: %s\nPress Enter to return to Title Screen" % self.score;
+				self.label.text = "Game Over Total Score: %s\nPress Enter to return to Title Screen" % self.total_score;
 				self.timer.paused = true;
 				self.set_enemy_pause(false)
 var round_count: int = 1;
@@ -75,7 +78,7 @@ func _ready() -> void:
 	if self.player.request_move.connect(_on_actor_request_move):
 		print("Player: Request Move");
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	if self.state == GameState.STARTING_ROUND:
 		if Input.is_action_just_pressed("Confirm"):
 			self.start_round();
@@ -84,28 +87,30 @@ func _process(_delta: float) -> void:
 		if !paused:
 			if counting_down:
 				var new_text_format: String = "Points: %s, Time remaining: %.2f";
-				var new_text: String = new_text_format % [self.score, self.timer.time_left];
+				var new_text: String = new_text_format % [self.round_score, self.timer.time_left];
 
 				self.label.text = new_text;
 			else:
-				self.label.text = "Points: %s" % self.score;
+				self.label.text = "Points: %s" % self.round_score;
 			var current_time: float = self.timer.time_left;
 			if !first_beep:
 				var diff: float = abs(current_time - 2.0);
 				if diff <= 0.01:
 					self.play_sfx.emit(SfxAudio.Sfx.COUNTDOWN_BEEP);
-					# self.countdown_beep.play();
 					self.first_beep = true;
 			if !second_beep:
 				var diff: float = abs(current_time - 1.0);
 				if diff <= 0.01:
 					self.play_sfx.emit(SfxAudio.Sfx.COUNTDOWN_BEEP);
-					# self.countdown_beep.play();
 					self.second_beep = true;
 
 			if Input.is_action_just_pressed("Pause"):
 				self.open_options.emit();
 				self.toggle_pause();
+				return
+
+			self.round_score -= 1 * ((delta * 60) as int);
+
 	if self.state == GameState.ENDING_ROUND_WIN:
 		if Input.is_action_just_pressed("Confirm"):
 			self._reset();
