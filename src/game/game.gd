@@ -42,6 +42,8 @@ var state: GameState = GameState.PLAYING_ROUND:
 				self.set_enemy_pause(false)
 var round_count: int = 1;
 var map: Map;
+var num_wires := 0;
+var wires: Array[Node]
 
 # @onready variables
 @onready var player: Player = $Player;
@@ -64,7 +66,11 @@ func _ready() -> void:
 	for enemy in self.enemies:
 		enemy.set_map(self.map);
 		if enemy.request_move.connect(_on_actor_request_move):
-			printerr("Enemy: Request Move connection error")
+			printerr("Enemy: Request Move connection error");
+
+	wires = get_tree().get_nodes_in_group("wires") as Array[Node];
+	for wire: Wire in wires:
+		wire.player_get_wire.connect(_on_wire_player_get_wire);
 
 	if self.explosion_timer.timeout.connect(_on_explosion_timer_timeout):
 		print("Explosion Timer: Timeout connect error!");
@@ -138,15 +144,32 @@ func _on_player_caught() -> void:
 	self.label.text = "You Lose!";
 	self.state = GameState.ENDING_ROUND_LOSS;
 
+func _on_wire_player_get_wire() -> void:
+	self.num_wires += 1;
+	print("Wire Get!");
+	print(self.num_wires);
+	var min_value := 0.5;
+	var log_value: float = log((5.0 - self.num_wires)) / log(10);
+	print(log_value);
+	var z := 3.576691;
+	self.timer.wait_time = min_value + log_value * z;
+	print("Time remaining: %s" % self.timer.wait_time);
+	pass;
+
 func _reset() -> void:
 	self.first_beep = false;
 	self.second_beep = false;
 	self.timer.stop()
 	self.timer.wait_time = 3.0
+	self.num_wires = 0;
 	self.counting_down = false;
 	self.player.reset();
 	for enemy in self.enemies:
 		enemy.reset();
+
+	for wire: Wire in self.wires:
+		wire.toggle_on();
+
 	self.player.bomb_mode = false;
 	self.map.set_actors(self._pack_actors());
 
