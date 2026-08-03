@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://jayqj2xyxvpf"]
+
+[ext_resource type="Texture2D" uid="uid://b6edi1yebbiyw" path="res://assets/Wire.png" id="1_m2i1m"]
+[ext_resource type="Script" uid="uid://dkgxhuhi452fe" path="res://src/game/wire.gd" id="2_1ees8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w47vf"]
+size = Vector2(16, 15)
+
+[node name="Wire" type="Sprite2D" unique_id=1514341461]
+texture = ExtResource("1_m2i1m")
+script = ExtResource("2_1ees8")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=461741572]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1195955320]
+visible = false
+shape = SubResource("RectangleShape2D_w47vf")

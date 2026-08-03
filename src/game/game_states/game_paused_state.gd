@@ -1,17 +1,14 @@
 # @tool, @icon, @static_unload
-class_name State
-extends RefCounted
+class_name GamePausedState
+extends State
 # ## doc comment
 
 # signals
-@warning_ignore("unused_signal")
-signal leave_state;
 # enums
 # constants
 # static variables
 # @export variables
 # remaining regular variables
-var name: String;
 # @onready variables
 
 # _static_init()
@@ -32,6 +29,7 @@ func update(_delta: float) -> void:
 
 func physics_update(_delta: float) -> void:
 	pass;
+
 # remaining private methods
 # remaining signal callbacks
 # inner classes

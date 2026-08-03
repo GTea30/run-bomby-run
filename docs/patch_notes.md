@@ -5,3 +5,11 @@
 
 ## Bug Fixes
 - Rounds now increment linearly
+
+# 0.4.0
+## Features
+- Score now starts at 1000 every round, and counts down.
+- Added a new mechanic: Wires! Collecting wires decreases the amount of time it takes for Bomby to explode!
+
+## Bug Fixes
+- Fixed game state bugs, such as states triggering their enter code multiple times (responsible for rounds not incrementing correctly)

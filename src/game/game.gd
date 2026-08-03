@@ -19,26 +19,16 @@ enum GameState {
 # remaining regular variables
 var counting_down: bool = false;
 var speed_multiplier: int = 1;
-var score: int = 0;
+var round_score: int = 1000;
+var total_score: int = 0;
 var first_beep := false;
 var second_beep := false;
 var paused := false;
-var state: GameState = GameState.PLAYING_ROUND:
-	set(new_state):
-		state = new_state;
-		match state:
-			GameState.STARTING_ROUND: self.label.text = "Round %s\nPress Enter to Continue" % self.round_count;
-			GameState.ENDING_ROUND_WIN:
-				self.score += 1;
-				self.round_count += 1;
-				self.label.text = "Round Won!\nPress Enter to Continue";
-				self.set_enemy_pause(true);
-			GameState.ENDING_ROUND_LOSS:
-				self.label.text = "Game Over Total Score: %s\nPress Enter to return to Title Screen" % self.score;
-				self.timer.paused = true;
-				self.set_enemy_pause(false)
+var state_machine: StateMachine;
 var round_count: int = 1;
 var map: Map;
+var num_wires := 0;
+var wires: Array[Node]
 
 # @onready variables
 @onready var player: Player = $Player;
@@ -57,11 +47,18 @@ var map: Map;
 func _ready() -> void:
 	var actors: Array[Actor] = self._pack_actors();
 	self.map = Map.new(tile_map_layer, actors);
+	self.state_machine = StateMachine.new(StartGameState.new(self));
 
 	for enemy in self.enemies:
 		enemy.set_map(self.map);
 		if enemy.request_move.connect(_on_actor_request_move):
-			printerr("Enemy: Request Move connection error")
+			printerr("Enemy: Request Move connection error");
+
+	wires = get_tree().get_nodes_in_group("wires") as Array[Node];
+	for wire: Wire in wires:
+		var err: Error = wire.player_get_wire.connect(_on_wire_player_get_wire) as Error;
+		if err:
+			printerr(err);
 
 	if self.explosion_timer.timeout.connect(_on_explosion_timer_timeout):
 		print("Explosion Timer: Timeout connect error!");
@@ -75,73 +72,67 @@ func _ready() -> void:
 	if self.player.request_move.connect(_on_actor_request_move):
 		print("Player: Request Move");
 
-func _process(_delta: float) -> void:
-	if self.state == GameState.STARTING_ROUND:
-		if Input.is_action_just_pressed("Confirm"):
-			self.start_round();
-			self.state = GameState.PLAYING_ROUND;
-	if self.state == GameState.PLAYING_ROUND:
-		if !paused:
-			if counting_down:
-				var new_text_format: String = "Points: %s, Time remaining: %.2f";
-				var new_text: String = new_text_format % [self.score, self.timer.time_left];
+	self.set_enemy_pause(true);
+	self.player.set_pause(true);
 
-				self.label.text = new_text;
-			else:
-				self.label.text = "Points: %s" % self.score;
-			var current_time: float = self.timer.time_left;
-			if !first_beep:
-				var diff: float = abs(current_time - 2.0);
-				if diff <= 0.01:
-					self.play_sfx.emit(SfxAudio.Sfx.COUNTDOWN_BEEP);
-					# self.countdown_beep.play();
-					self.first_beep = true;
-			if !second_beep:
-				var diff: float = abs(current_time - 1.0);
-				if diff <= 0.01:
-					self.play_sfx.emit(SfxAudio.Sfx.COUNTDOWN_BEEP);
-					# self.countdown_beep.play();
-					self.second_beep = true;
-
-			if Input.is_action_just_pressed("Pause"):
-				self.open_options.emit();
-				self.toggle_pause();
-	if self.state == GameState.ENDING_ROUND_WIN:
-		if Input.is_action_just_pressed("Confirm"):
-			self._reset();
-			self.state = GameState.STARTING_ROUND;
-	if self.state == GameState.ENDING_ROUND_LOSS:
-		if Input.is_action_just_pressed("Confirm"):
-			self.change_scene.emit(SceneManager.SceneEnum.START_SCENE);
+func _process(delta: float) -> void:
+	self.state_machine.update_current_state(delta);
 
 #    _physics_process()
 #    remaining virtual methods
 # overridden custom methods
 # remaining methods
+
+func toggle_pause_poll() -> void:
+	if Input.is_action_just_pressed("Pause"):
+		self.open_options.emit();
+		self.toggle_pause();
+
+func decrement_score(delta: float) -> void:
+	if self.round_score > 0:
+		self.round_score -= ((delta * 60.0) as int);
+
 func _on_player_to_explode() -> void:
 	self.timer.start();
-	self.counting_down = true;
+	self.state_machine.remove_current_state();
+	self.state_machine.push_state(CountingDownState.new(self));
 	self.play_sfx.emit(SfxAudio.Sfx.COUNTDOWN_BEEP);
-	# self.countdown_beep.play();
 
 func _on_timer_timeout() -> void:
 	self.counting_down = false;
-	self.state = GameState.ENDING_ROUND_WIN;
+	self.timer.stop()
+	self.timer.wait_time = 3.0
+	self.state_machine.remove_current_state();
+	self.state_machine.push_state(WinRoundState.new(self));
 
 func _on_player_caught() -> void:
 	self.counting_down = false;
 	self.label.text = "You Lose!";
-	self.state = GameState.ENDING_ROUND_LOSS;
+	self.state_machine.remove_current_state();
+	self.state_machine.push_state(LostRoundState.new(self));
 
-func _reset() -> void:
+func _on_wire_player_get_wire() -> void:
+	self.num_wires += 1;
+	var min_value := 0.5;
+	var log_value: float = log((5.0 - self.num_wires)) / log(10);
+	var z := 3.576691;
+	self.timer.wait_time = min_value + log_value * z;
+	pass;
+
+func reset() -> void:
 	self.first_beep = false;
 	self.second_beep = false;
 	self.timer.stop()
 	self.timer.wait_time = 3.0
+	self.num_wires = 0;
 	self.counting_down = false;
 	self.player.reset();
 	for enemy in self.enemies:
 		enemy.reset();
+
+	for wire: Wire in self.wires:
+		wire.toggle_on();
+
 	self.player.bomb_mode = false;
 	self.map.set_actors(self._pack_actors());
 
@@ -176,7 +167,7 @@ func set_enemy_pause(new_paused: bool) -> void:
 		enemy.set_pause(new_paused);
 
 func _on_explosion_timer_timeout() -> void:
-	if self.state == GameState.ENDING_ROUND_WIN:
+	if self.state_machine.get_state() is WinRoundState:
 		self.trigger_explosion();
 
 func _pack_actors() -> Array[Actor]:
