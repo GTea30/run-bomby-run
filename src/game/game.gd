@@ -115,7 +115,10 @@ func _process(delta: float) -> void:
 				self.toggle_pause();
 				return
 
-			self.round_score -= 1 * ((delta * 60) as int);
+			if self.round_score > 0:
+				print(self.round_score)
+				self.round_score -= ((delta * 60.0) as int);
+
 
 	if self.state == GameState.ENDING_ROUND_WIN:
 		if Input.is_action_just_pressed("Confirm"):
