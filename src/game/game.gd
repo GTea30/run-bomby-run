@@ -56,7 +56,9 @@ func _ready() -> void:
 
 	wires = get_tree().get_nodes_in_group("wires") as Array[Node];
 	for wire: Wire in wires:
-		wire.player_get_wire.connect(_on_wire_player_get_wire);
+		var err: Error = wire.player_get_wire.connect(_on_wire_player_get_wire) as Error;
+		if err:
+			printerr(err);
 
 	if self.explosion_timer.timeout.connect(_on_explosion_timer_timeout):
 		print("Explosion Timer: Timeout connect error!");
