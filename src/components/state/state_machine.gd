@@ -17,7 +17,7 @@ var state_stack: Array[State];
 # remaining static methods
 # overridden built-in virtual methods:
 func _init(initial_state: State = IdleState.new()) -> void:
-	self.state_stack.push_back(initial_state);
+	self.push_state(initial_state);
 	pass;
 #    remaining virtual methods
 # overridden custom methods
