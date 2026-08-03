@@ -146,14 +146,10 @@ func _on_player_caught() -> void:
 
 func _on_wire_player_get_wire() -> void:
 	self.num_wires += 1;
-	print("Wire Get!");
-	print(self.num_wires);
 	var min_value := 0.5;
 	var log_value: float = log((5.0 - self.num_wires)) / log(10);
-	print(log_value);
 	var z := 3.576691;
 	self.timer.wait_time = min_value + log_value * z;
-	print("Time remaining: %s" % self.timer.wait_time);
 	pass;
 
 func _reset() -> void:
