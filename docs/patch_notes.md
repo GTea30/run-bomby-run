@@ -10,6 +10,7 @@
 ## Features
 - Score now starts at 1000 every round, and counts down.
 - Added a new mechanic: Wires! Collecting wires decreases the amount of time it takes for Bomby to explode!
+- Brand-new enemy sprites
 
 ## Bug Fixes
 - Fixed game state bugs, such as states triggering their enter code multiple times (responsible for rounds not incrementing correctly)

@@ -7,7 +7,11 @@
 [ext_resource type="Script" uid="uid://drskeafk4oy1s" path="res://src/game/tile_map_layer.gd" id="4_jhw8o"]
 [ext_resource type="PackedScene" uid="uid://dri64f2c6iix5" path="res://src/game/enemy/enemy.tscn" id="4_wqvko"]
 [ext_resource type="Theme" uid="uid://dimq1w3s4buar" path="res://src/resources/theme.tres" id="5_jhw8o"]
+[ext_resource type="Texture2D" uid="uid://by78irymawqci" path="res://assets/yellow_palette.png" id="7_6kr85"]
+[ext_resource type="Shader" uid="uid://dooq7757pmg4y" path="res://src/game/enemy/enemy.gdshader" id="7_clwl7"]
+[ext_resource type="Texture2D" uid="uid://o8ngux2ds5w3" path="res://assets/green_palette.png" id="8_clwl7"]
 [ext_resource type="PackedScene" uid="uid://jayqj2xyxvpf" path="res://src/game/wire.tscn" id="8_n7s5x"]
+[ext_resource type="Texture2D" uid="uid://d2w84ncv7tylb" path="res://assets/red_palette.png" id="9_7r0dx"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_jhw8o"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
@@ -27,54 +31,28 @@ physics_layer_0/collision_layer = 1
 navigation_layer_0/layers = 1
 sources/3 = SubResource("TileSetAtlasSource_n7s5x")
 
-[sub_resource type="Shader" id="Shader_jipju"]
-code = "shader_type canvas_item;
-
-float hard_light(float a, float b) {
-	if (b < 0.5) {
-		return 2.0f * a * b;
-	} else {
-		return 1.0f - 2.0f * (1.0f - a) * (1.0f - b);
-	}
-}
-
-void vertex() {
-	// Called for every vertex the material is visible on.
-}
-
-uniform vec4 shade;
-void fragment() {
-	// Called for every pixel the material is visible on.
-	vec4 new_color = COLOR;
-	new_color.r = hard_light(shade.r, COLOR.r);
-	new_color.g = hard_light(shade.g, COLOR.g);
-	new_color.b = hard_light(shade.b, COLOR.b);
-
-	COLOR = new_color;
-}
-
-
-//void light() {
-//	// Called for every pixel for every light affecting the CanvasItem.
-//	// Uncomment to replace the default light processing function with this one.
-//}
-"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_n7s5x"]
-shader = SubResource("Shader_jipju")
-shader_parameter/shade = Vector4(0, 0, 0, 0)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6kr85"]
-shader = SubResource("Shader_jipju")
-shader_parameter/shade = Vector4(0, 0, 0, 0)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_clwl7"]
-shader = SubResource("Shader_jipju")
-shader_parameter/shade = Vector4(0, 0, 0, 0)
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_a55my"]
+load_path = "res://.godot/imported/blue_palette.png-2f5968fb0900718a61b221aad2513915.ctex"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7r0dx"]
-shader = SubResource("Shader_jipju")
-shader_parameter/shade = Vector4(0, 0, 0, 0)
+resource_local_to_scene = true
+shader = ExtResource("7_clwl7")
+shader_parameter/palette = SubResource("CompressedTexture2D_a55my")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_htx8b"]
+resource_local_to_scene = true
+shader = ExtResource("7_clwl7")
+shader_parameter/palette = ExtResource("7_6kr85")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ueio8"]
+resource_local_to_scene = true
+shader = ExtResource("7_clwl7")
+shader_parameter/palette = ExtResource("8_clwl7")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_etvrb"]
+resource_local_to_scene = true
+shader = ExtResource("7_clwl7")
+shader_parameter/palette = ExtResource("9_7r0dx")
 
 [node name="Game" type="CanvasLayer" unique_id=1933913584 node_paths=PackedStringArray("enemies")]
 script = ExtResource("1_kc8ui")
@@ -92,28 +70,24 @@ metadata/_edit_lock_ = true
 position = Vector2(312, 168)
 
 [node name="Enemy" parent="." unique_id=75402593 node_paths=PackedStringArray("target") instance=ExtResource("4_wqvko")]
-material = SubResource("ShaderMaterial_n7s5x")
+material = SubResource("ShaderMaterial_7r0dx")
 position = Vector2(214, 105)
 target = NodePath("../Player")
-shade = Color(1, 0, 0, 1)
 
 [node name="Enemy2" parent="." unique_id=643866313 node_paths=PackedStringArray("target") instance=ExtResource("4_wqvko")]
-material = SubResource("ShaderMaterial_6kr85")
+material = SubResource("ShaderMaterial_htx8b")
 position = Vector2(406, 233)
 target = NodePath("../Player")
-shade = Color(0.33333325, 1, 0, 1)
 
 [node name="Enemy3" parent="." unique_id=1086499719 node_paths=PackedStringArray("target") instance=ExtResource("4_wqvko")]
-material = SubResource("ShaderMaterial_clwl7")
+material = SubResource("ShaderMaterial_ueio8")
 position = Vector2(249, 268)
 target = NodePath("../Player")
-shade = Color(0, 0.6666665, 1, 1)
 
 [node name="Enemy4" parent="." unique_id=468633409 node_paths=PackedStringArray("target") instance=ExtResource("4_wqvko")]
-material = SubResource("ShaderMaterial_7r0dx")
+material = SubResource("ShaderMaterial_etvrb")
 position = Vector2(376, 76)
 target = NodePath("../Player")
-shade = Color(1, 0, 1, 1)
 
 [node name="Timer" type="Timer" parent="." unique_id=671874820]
 wait_time = 3.0

@@ -9,7 +9,6 @@ extends Actor
 # static variables
 # @export variables
 @export var target: Player;
-@export var shade: Color;
 
 # remaining regular variables
 
@@ -27,7 +26,6 @@ func _ready() -> void:
 	self.starting_position = self.global_position;
 	self.grid_position = self.global_as_grid();
 	self.state_machine = StateMachine.new();
-	self._set_material();
 	# self.state_machine.push_state(EnemyMoveState.new(self))
 
 #    _process()
@@ -46,9 +44,6 @@ func reset() -> void:
 	super();
 	self.speed += 1;
 
-func _set_material() -> void:
-	var mat: ShaderMaterial = self.material as ShaderMaterial;
-	mat.set_shader_parameter("shade", shade);
 
 func _on_request_move(dir: Vector2i, callback: Callable) -> void:
 	self.request_move.emit(self, dir, callback);
