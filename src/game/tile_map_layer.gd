@@ -34,11 +34,13 @@ func _ready() -> void:
 
 func init_data() -> void:
 	for cell in self.get_used_cells():
-		match self.get_cell_atlas_coords(cell):
-			Vector2i(0, 2):
-				self.data[cell] = MapTileID.FLOOR;
-			Vector2i(1, 2):
-				self.data[cell] = MapTileID.WALL;
+		if cell == Vector2i(11, 2):
+			print("Flor Tile 01");
+		var tile: TileData = self.get_cell_tile_data(cell);
+		if tile.terrain == 2:
+			self.data[cell] = MapTileID.FLOOR;
+		else:
+			self.data[cell] = MapTileID.WALL;
 
 ## Can Return Null
 func get_cell(coord: Vector2i) -> MapTileID:
