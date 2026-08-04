@@ -25,7 +25,7 @@ func _init(init_game: Game) -> void:
 # remaining public methods
 func enter() -> void:
 	print(self.name);
-	self.game.total_score += self.game.round_score;
+	self.game.total_score += round(self.game.round_score);
 	self.game.round_count += 1;
 	self.game.label.text = "Round Won! Current Score: %s\nPress Enter to Continue" % self.game.total_score;
 	self.game.set_enemy_pause(true);

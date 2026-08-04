@@ -33,7 +33,7 @@ func exit() -> void:
 func update(delta: float) -> void:
 	self.game.toggle_pause_poll();
 
-	var new_text_format: String = "Points: %s, Time Remaining: %.2f";
+	var new_text_format: String = "Points: %.0f, Time Remaining: %.2f";
 	var new_text: String = new_text_format % [self.game.round_score, self.game.timer.time_left];
 	self.game.label.text = new_text;
 
