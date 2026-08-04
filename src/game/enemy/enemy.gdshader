@@ -11,13 +11,6 @@ void fragment() {
 		ivec2 coords = ivec2(index, 0);
 		COLOR = texelFetch(palette, coords, 0);
 	}
-	// Called for every pixel the material is visible on.
-	// vec4 new_color = COLOR;
-	// new_color.r = hard_light(shade.r, COLOR.r);
-	// new_color.g = hard_light(shade.g, COLOR.g);
-	// new_color.b = hard_light(shade.b, COLOR.b);
-
-	// COLOR = new_color;
 }
 
 

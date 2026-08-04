@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dri64f2c6iix5" path="res://src/game/enemy/enemy.tscn" id="4_wqvko"]
 [ext_resource type="Theme" uid="uid://dimq1w3s4buar" path="res://src/resources/theme.tres" id="5_jhw8o"]
 [ext_resource type="Texture2D" uid="uid://by78irymawqci" path="res://assets/yellow_palette.png" id="7_6kr85"]
+[ext_resource type="Shader" uid="uid://dooq7757pmg4y" path="res://src/game/enemy/enemy.gdshader" id="7_clwl7"]
 [ext_resource type="Texture2D" uid="uid://o8ngux2ds5w3" path="res://assets/green_palette.png" id="8_clwl7"]
 [ext_resource type="PackedScene" uid="uid://jayqj2xyxvpf" path="res://src/game/wire.tscn" id="8_n7s5x"]
 [ext_resource type="Texture2D" uid="uid://d2w84ncv7tylb" path="res://assets/red_palette.png" id="9_7r0dx"]
@@ -30,49 +31,27 @@ physics_layer_0/collision_layer = 1
 navigation_layer_0/layers = 1
 sources/3 = SubResource("TileSetAtlasSource_n7s5x")
 
-[sub_resource type="Shader" id="Shader_clwl7"]
-code = "shader_type canvas_item;
-
-void vertex() {
-	// Called for every vertex the material is visible on.
-}
-
-uniform sampler2D palette;
-void fragment() {
-	if (abs(COLOR.a - 0.0) > 0.0001) {
-		int index = int((COLOR.r * 255.0));
-		ivec2 coords = ivec2(index, 0);
-		COLOR = texelFetch(palette, coords, 0);
-	}
-	// Called for every pixel the material is visible on.
-	// vec4 new_color = COLOR;
-	// new_color.r = hard_light(shade.r, COLOR.r);
-	// new_color.g = hard_light(shade.g, COLOR.g);
-	// new_color.b = hard_light(shade.b, COLOR.b);
-
-	// COLOR = new_color;
-}
-
-
-//void light() {
-//	// Called for every pixel for every light affecting the CanvasItem.
-//	// Uncomment to replace the default light processing function with this one.
-//}
-"
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_a55my"]
+load_path = "res://.godot/imported/blue_palette.png-2f5968fb0900718a61b221aad2513915.ctex"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7r0dx"]
 resource_local_to_scene = true
-shader = SubResource("Shader_clwl7")
-shader_parameter/palette = ExtResource("7_6kr85")
+shader = ExtResource("7_clwl7")
+shader_parameter/palette = SubResource("CompressedTexture2D_a55my")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_htx8b"]
 resource_local_to_scene = true
-shader = SubResource("Shader_clwl7")
-shader_parameter/palette = ExtResource("8_clwl7")
+shader = ExtResource("7_clwl7")
+shader_parameter/palette = ExtResource("7_6kr85")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ueio8"]
 resource_local_to_scene = true
-shader = SubResource("Shader_clwl7")
+shader = ExtResource("7_clwl7")
+shader_parameter/palette = ExtResource("8_clwl7")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_etvrb"]
+resource_local_to_scene = true
+shader = ExtResource("7_clwl7")
 shader_parameter/palette = ExtResource("9_7r0dx")
 
 [node name="Game" type="CanvasLayer" unique_id=1933913584 node_paths=PackedStringArray("enemies")]
@@ -91,21 +70,22 @@ metadata/_edit_lock_ = true
 position = Vector2(312, 168)
 
 [node name="Enemy" parent="." unique_id=75402593 node_paths=PackedStringArray("target") instance=ExtResource("4_wqvko")]
+material = SubResource("ShaderMaterial_7r0dx")
 position = Vector2(214, 105)
 target = NodePath("../Player")
 
 [node name="Enemy2" parent="." unique_id=643866313 node_paths=PackedStringArray("target") instance=ExtResource("4_wqvko")]
-material = SubResource("ShaderMaterial_7r0dx")
+material = SubResource("ShaderMaterial_htx8b")
 position = Vector2(406, 233)
 target = NodePath("../Player")
 
 [node name="Enemy3" parent="." unique_id=1086499719 node_paths=PackedStringArray("target") instance=ExtResource("4_wqvko")]
-material = SubResource("ShaderMaterial_htx8b")
+material = SubResource("ShaderMaterial_ueio8")
 position = Vector2(249, 268)
 target = NodePath("../Player")
 
 [node name="Enemy4" parent="." unique_id=468633409 node_paths=PackedStringArray("target") instance=ExtResource("4_wqvko")]
-material = SubResource("ShaderMaterial_ueio8")
+material = SubResource("ShaderMaterial_etvrb")
 position = Vector2(376, 76)
 target = NodePath("../Player")
 
