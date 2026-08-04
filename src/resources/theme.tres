@@ -1,6 +1,6 @@
 [gd_resource type="Theme" format=3 uid="uid://dimq1w3s4buar"]
 
-[ext_resource type="FontFile" uid="uid://cefk3kmlxcf41" path="res://src/resources/ibm_font.res" id="1_rkkia"]
+[ext_resource type="FontFile" uid="uid://sok5ak65vxik" path="res://assets/fonts/Px437_IBM_BIOS.ttf" id="1_rkkia"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1t7cb"]
 content_margin_left = 8.0
@@ -18,7 +18,7 @@ bg_color = Color(0.13333334, 0.13333334, 0.13333334, 1)
 
 [resource]
 default_font = ExtResource("1_rkkia")
-default_font_size = 16
+default_font_size = 8
 MarginContainer/constants/margin_bottom = 8
 MarginContainer/constants/margin_left = 8
 MarginContainer/constants/margin_right = 8
