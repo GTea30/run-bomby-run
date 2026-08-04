@@ -373,6 +373,7 @@ nodes/TimeScale/position = Vector2(60, 120)
 node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"PlayerState"]
 
 [node name="Player" type="CharacterBody2D" unique_id=226046125]
+z_index = 10
 script = ExtResource("1_7164q")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=813463255]

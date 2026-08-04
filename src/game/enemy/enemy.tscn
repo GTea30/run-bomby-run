@@ -429,6 +429,7 @@ _data = {
 }
 
 [node name="Enemy" type="CharacterBody2D" unique_id=226046125]
+z_index = 10
 material = ExtResource("1_ehmkr")
 script = ExtResource("1_juonw")
 
