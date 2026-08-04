@@ -3,6 +3,8 @@
 [ext_resource type="Theme" uid="uid://dimq1w3s4buar" path="res://src/resources/theme.tres" id="1_c14cj"]
 [ext_resource type="Script" uid="uid://d3thu07ostqit" path="res://src/options/options.gd" id="2_hh8hj"]
 
+[sub_resource type="Theme" id="Theme_hh8hj"]
+
 [node name="Options" type="Control" unique_id=1234068276 node_paths=PackedStringArray("resolution_node", "window_mode_node", "sfx_volume_node", "music_volume_node")]
 layout_mode = 3
 anchors_preset = 15
@@ -32,13 +34,12 @@ offset_right = 113.0
 offset_bottom = 75.5
 grow_horizontal = 2
 grow_vertical = 2
-current_tab = 1
+current_tab = 0
 clip_tabs = false
 switch_on_drag_hover = false
 use_hidden_tabs_for_min_size = true
 
 [node name="Video" type="MarginContainer" parent="Menu" unique_id=2146177682]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -80,6 +81,7 @@ popup/item_2/text = "Exclusive Fullscreen"
 popup/item_2/id = 2
 
 [node name="Audio" type="MarginContainer" parent="Menu" unique_id=859480645]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
@@ -112,16 +114,17 @@ value = 1.0
 
 [node name="CloseButton" type="Button" parent="." unique_id=1328391682]
 layout_mode = 0
-offset_left = 401.0
+offset_left = 413.0
 offset_top = 99.0
-offset_right = 436.0
+offset_right = 448.0
 offset_bottom = 129.0
+theme = SubResource("Theme_hh8hj")
 text = "X"
 
 [node name="SaveButton" type="Button" parent="." unique_id=1357073546]
 layout_mode = 0
-offset_left = 364.0
+offset_left = 376.0
 offset_top = 256.0
-offset_right = 436.0
+offset_right = 448.0
 offset_bottom = 280.0
 text = "Save"
