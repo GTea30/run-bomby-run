@@ -32,7 +32,7 @@ func exit() -> void:
 
 func update(delta: float) -> void:
 	self.game.toggle_pause_poll();
-	self.game.label.text = "Points: %s" % self.game.round_score;
+	self.game.label.text = "Points: %.0f" % self.game.round_score;
 	self.game.decrement_score(delta);
 
 func physics_update(_delta: float) -> void:

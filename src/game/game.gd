@@ -19,7 +19,7 @@ enum GameState {
 # remaining regular variables
 var counting_down: bool = false;
 var speed_multiplier: int = 1;
-var round_score: int = 1000;
+var round_score: float = 1000;
 var total_score: int = 0;
 var first_beep := false;
 var second_beep := false;
@@ -90,7 +90,7 @@ func toggle_pause_poll() -> void:
 
 func decrement_score(delta: float) -> void:
 	if self.round_score > 0:
-		self.round_score -= ((delta * 60.0) as int);
+		self.round_score -= delta * 60;
 
 func _on_player_to_explode() -> void:
 	self.timer.start();
@@ -113,9 +113,9 @@ func _on_player_caught() -> void:
 
 func _on_wire_player_get_wire() -> void:
 	self.num_wires += 1;
-	var min_value := 0.5;
+	var min_value := 0.0167;
 	var log_value: float = log((5.0 - self.num_wires)) / log(10);
-	var z := 3.576691;
+	var z := 4.268137;
 	self.timer.wait_time = min_value + log_value * z;
 	pass;
 
