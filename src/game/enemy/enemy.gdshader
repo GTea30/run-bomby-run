@@ -1,26 +1,23 @@
 shader_type canvas_item;
 
-float hard_light(float a, float b) {
-	if (b < 0.5) {
-		return 2.0f * a * b;
-	} else {
-		return 1.0f - 2.0f * (1.0f - a) * (1.0f - b);
-	}
-}
-
 void vertex() {
 	// Called for every vertex the material is visible on.
 }
 
-uniform vec4 shade;
+uniform sampler2D palette;
 void fragment() {
+	if (abs(COLOR.a - 0.0) > 0.0001) {
+		int index = int((COLOR.r * 255.0));
+		ivec2 coords = ivec2(index, 0);
+		COLOR = texelFetch(palette, coords, 0);
+	}
 	// Called for every pixel the material is visible on.
-	vec4 new_color = COLOR;
-	new_color.r = hard_light(shade.r, COLOR.r);
-	new_color.g = hard_light(shade.g, COLOR.g);
-	new_color.b = hard_light(shade.b, COLOR.b);
+	// vec4 new_color = COLOR;
+	// new_color.r = hard_light(shade.r, COLOR.r);
+	// new_color.g = hard_light(shade.g, COLOR.g);
+	// new_color.b = hard_light(shade.b, COLOR.b);
 
-	COLOR = new_color;
+	// COLOR = new_color;
 }
 
 

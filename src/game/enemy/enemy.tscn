@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://dri64f2c6iix5"]
 
+[ext_resource type="Material" uid="uid://dwlqq70vxuutg" path="res://src/game/enemy/enemy_shader_material.tres" id="1_ehmkr"]
 [ext_resource type="Script" uid="uid://8sc25pd4hyph" path="res://src/game/enemy/enemy.gd" id="1_juonw"]
 [ext_resource type="SpriteFrames" uid="uid://ilt0vpjqjgyj" path="res://src/game/enemy/enemy_sprite_frames.tres" id="2_jipju"]
 [ext_resource type="Script" uid="uid://c2jxxu8moa1v0" path="res://src/game/enemy/enemy_animation_tree.gd" id="3_1swrw"]
@@ -428,8 +429,8 @@ _data = {
 }
 
 [node name="Enemy" type="CharacterBody2D" unique_id=226046125]
+material = ExtResource("1_ehmkr")
 script = ExtResource("1_juonw")
-shade = Color(1, 1, 1, 1)
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=904819347]
 use_parent_material = true
@@ -437,6 +438,8 @@ sprite_frames = ExtResource("2_jipju")
 animation = &"idle_down"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1344415394]
+visible = false
+use_parent_material = true
 position = Vector2(0, 0.5)
 shape = SubResource("CapsuleShape2D_jipju")
 
