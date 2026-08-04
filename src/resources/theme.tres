@@ -1,29 +1,41 @@
 [gd_resource type="Theme" format=3 uid="uid://dimq1w3s4buar"]
 
-[ext_resource type="FontFile" uid="uid://cefk3kmlxcf41" path="res://src/resources/ibm_font.res" id="1_rkkia"]
+[ext_resource type="StyleBox" uid="uid://bpnwjcja8t5um" path="res://src/resources/bomb_box.tres" id="1_oi6g0"]
+[ext_resource type="FontFile" uid="uid://sok5ak65vxik" path="res://assets/fonts/Px437_IBM_BIOS.ttf" id="1_rkkia"]
+[ext_resource type="Texture2D" uid="uid://dwx0gxxpqk0iq" path="res://assets/down_arrow.png" id="2_8vrk3"]
+[ext_resource type="Texture2D" uid="uid://n0j0ia8x5gnn" path="res://assets/grabber.png" id="2_pq20n"]
+[ext_resource type="Texture2D" uid="uid://c1tn60yodjddv" path="res://assets/radio_checked.png" id="3_l8s2x"]
+[ext_resource type="Texture2D" uid="uid://bqdtwjk5eexvs" path="res://assets/radio_unchecked.png" id="4_pq20n"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1t7cb"]
-content_margin_left = 8.0
-content_margin_top = 8.0
-content_margin_right = 8.0
-content_margin_bottom = 8.0
-bg_color = Color(0.18039216, 0.18039216, 0.18039216, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c14cj"]
-content_margin_left = 8.0
-content_margin_top = 8.0
-content_margin_right = 8.0
-content_margin_bottom = 8.0
-bg_color = Color(0.13333334, 0.13333334, 0.13333334, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kox2r"]
+border_width_top = 2
+border_color = Color(0.30529857, 0.29293716, 0.2899652, 1)
+corner_detail = 1
 
 [resource]
 default_font = ExtResource("1_rkkia")
-default_font_size = 16
+default_font_size = 8
+Button/styles/hover = ExtResource("1_oi6g0")
+Button/styles/normal = ExtResource("1_oi6g0")
+Button/styles/pressed = ExtResource("1_oi6g0")
+CheckButton/styles/normal = ExtResource("1_oi6g0")
+HSlider/icons/grabber = ExtResource("2_pq20n")
+HSlider/icons/grabber_highlight = ExtResource("2_pq20n")
+HSlider/styles/slider = SubResource("StyleBoxFlat_kox2r")
 MarginContainer/constants/margin_bottom = 8
 MarginContainer/constants/margin_left = 8
 MarginContainer/constants/margin_right = 8
 MarginContainer/constants/margin_top = 8
+OptionButton/constants/arrow_margin = 8
+OptionButton/icons/arrow = ExtResource("2_8vrk3")
+PanelContainer/styles/panel = ExtResource("1_oi6g0")
+PopupMenu/icons/radio_checked = ExtResource("3_l8s2x")
+PopupMenu/icons/radio_unchecked = ExtResource("4_pq20n")
+PopupMenu/styles/panel = ExtResource("1_oi6g0")
 TabContainer/constants/side_margin = 0
-TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_1t7cb")
-TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_c14cj")
+TabContainer/styles/panel = ExtResource("1_oi6g0")
+TabContainer/styles/tab_disabled = ExtResource("1_oi6g0")
+TabContainer/styles/tab_hovered = ExtResource("1_oi6g0")
+TabContainer/styles/tab_selected = ExtResource("1_oi6g0")
+TabContainer/styles/tab_unselected = ExtResource("1_oi6g0")
 VBoxContainer/constants/separation = 8

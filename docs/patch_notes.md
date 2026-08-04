@@ -13,6 +13,7 @@
 - Brand-new enemy sprites
 - Edited player sprites
 - Brand-new tile sprites
+- New UI
 
 ## Bug Fixes
 - Fixed game state bugs, such as states triggering their enter code multiple times (responsible for rounds not incrementing correctly)
