@@ -45,6 +45,10 @@ window/stretch/scale_mode="integer"
 
 import/blender/enabled=false
 
+[gui]
+
+fonts/dynamic_fonts/use_oversampling=false
+
 [input]
 
 "Left Click"={
@@ -109,4 +113,4 @@ textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
-environment/defaults/default_clear_color=Color(0.09019608, 0.08235294, 0.13725491, 1)
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)

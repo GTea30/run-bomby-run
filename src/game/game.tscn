@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://o8ngux2ds5w3" path="res://assets/green_palette.png" id="8_clwl7"]
 [ext_resource type="PackedScene" uid="uid://jayqj2xyxvpf" path="res://src/game/wire.tscn" id="8_n7s5x"]
 [ext_resource type="Texture2D" uid="uid://d2w84ncv7tylb" path="res://assets/red_palette.png" id="9_7r0dx"]
+[ext_resource type="Texture2D" uid="uid://btxvu5ln6v8q8" path="res://assets/Marquee.png" id="13_ueio8"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_etvrb"]
 texture = ExtResource("3_ueio8")
@@ -141,6 +142,7 @@ shader = ExtResource("7_clwl7")
 shader_parameter/palette = ExtResource("9_7r0dx")
 
 [node name="Game" type="CanvasLayer" unique_id=1933913584 node_paths=PackedStringArray("enemies")]
+follow_viewport_enabled = true
 script = ExtResource("1_kc8ui")
 enemies = [NodePath("Enemy"), NodePath("Enemy2"), NodePath("Enemy3"), NodePath("Enemy4")]
 explosion = ExtResource("2_6kr85")
@@ -182,8 +184,10 @@ wait_time = 3.0
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -16.0
-offset_right = 112.0
+offset_left = 166.0
+offset_top = -32.0
+offset_right = 278.0
+offset_bottom = -16.0
 grow_vertical = 0
 size_flags_horizontal = 4
 theme = ExtResource("5_jhw8o")
@@ -207,3 +211,10 @@ position = Vector2(344, 232)
 
 [node name="Wire4" parent="." unique_id=750703980 groups=["wires"] instance=ExtResource("8_n7s5x")]
 position = Vector2(248, 200)
+
+[node name="Marquee" type="Sprite2D" parent="." unique_id=1401988801]
+position = Vector2(312, 172)
+texture = ExtResource("13_ueio8")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=242588551]
+position = Vector2(312, 172)
